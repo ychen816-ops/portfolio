@@ -231,6 +231,7 @@ nav {
 .grid-row-2 {
   display: flex;
   gap: var(--gap);
+  grid-column: 1 / -1;
 }
 .grid-row-2 .project-card:first-child {
   flex: 1;
@@ -1203,8 +1204,9 @@ footer p {
     grid-column: span 1;
   }
 
-  .pg-full {
-    grid-column: span 2;
+  .pg-full,
+  .grid-row-2 {
+    grid-column: 1 / -1;
   }
 
   /* Reset portrait thumb to landscape on small grid */
@@ -1304,6 +1306,11 @@ footer p {
   }
 
   .pg-8, .pg-4, .pg-4th, .pg-full {
+    grid-column: span 1;
+  }
+
+  .grid-row-2 {
+    flex-direction: column;
     grid-column: span 1;
   }
 
