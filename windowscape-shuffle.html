@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Windowscape Shuffle — Andrea Cheng</title>
+  <link rel="icon" type="image/png" href="images/favicon/Asset 2.png" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      margin: 0;
+      background: #fff;
+      cursor: pointer;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    #stage {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+    .element {
+      position: absolute;
+      image-rendering: pixelated;
+      /* transition set per-element with staggered delay */
+    }
+    canvas { display: none; }
+    #loading {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Helvetica Neue', sans-serif;
+      font-size: 14px;
+      color: #999;
+      letter-spacing: 0.05em;
+      z-index: 10;
+      background: #fff;
+    }
+    #hint {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Helvetica Neue', sans-serif;
+      font-size: 12px;
+      color: #bbb;
+      letter-spacing: 0.08em;
+      pointer-events: none;
+      transition: opacity 0.5s;
+      z-index: 5;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loading">Loading elements…</div>
+  <div id="stage"></div>
+  <div id="hint">Click anywhere to shuffle</div>
+
+  <canvas id="work"></canvas>
+
+  <script>
+    const IMG_SRC = 'images/windowscape/hero-image-3.png';
+    const MIN_AREA = 80;
+    const MAX_ELEMENTS = 60;
+    const THRESHOLD = 100;
+    const PADDING = 6;
+
+    // Color palette: yellows, blues, greens + occasional pops
+    const PALETTE = [
+      // yellows / warm
+      [234, 197, 45],  [245, 210, 80],  [255, 223, 100], [200, 170, 30],
+      // blues
+      [40, 100, 200],  [60, 140, 220],  [30, 80, 180],   [80, 160, 240],
+      // greens / teals
+      [30, 170, 100],  [50, 190, 130],  [20, 140, 80],   [60, 200, 160],
+      // pops of color
+      [230, 80, 80],   [220, 120, 200], [255, 140, 50],  [160, 90, 220],
+      [255, 100, 120], [40, 200, 200],
+    ];
+
+    const stage = document.getElementById('stage');
+    const loading = document.getElementById('loading');
+    const hint = document.getElementById('hint');
+    const canvas = document.getElementById('work');
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+
+    let elements = [];
+    let firstClick = true;
+
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+      extractElements();
+      loading.style.display = 'none';
+      tintElements();
+      shuffle();
+    };
+    img.src = IMG_SRC;
+
+    // ---- Pick a random color, biased toward yellow/blue/green (first 12) ----
+    function pickColor() {
+      // 75% chance of yellow/blue/green, 25% chance of pop color
+      const pool = Math.random() < 0.75 ? 12 : PALETTE.length;
+      const idx = Math.floor(Math.random() * pool);
+      return PALETTE[idx];
+    }
+
+    // ---- Tint an element's canvas pixels to a given color ----
+    function tintCanvas(srcCanvas, color) {
+      const c = document.createElement('canvas');
+      c.width = srcCanvas.width;
+      c.height = srcCanvas.height;
+      const tctx = c.getContext('2d');
+      tctx.drawImage(srcCanvas, 0, 0);
+      const id = tctx.getImageData(0, 0, c.width, c.height);
+      const d = id.data;
+      for (let i = 0; i < d.length; i += 4) {
+        if (d[i + 3] > 0) {
+          // Blend: preserve luminance from original, apply color
+          const lum = (d[i] + d[i+1] + d[i+2]) / 3 / 255;
+          d[i]     = Math.round(color[0] * (1 - lum * 0.6));
+          d[i + 1] = Math.round(color[1] * (1 - lum * 0.6));
+          d[i + 2] = Math.round(color[2] * (1 - lum * 0.6));
+        }
+      }
+      tctx.putImageData(id, 0, 0);
+      return c.toDataURL();
+    }
+
+    // ---- Apply random colors to all elements ----
+    function tintElements() {
+      elements.forEach(el => {
+        const color = pickColor();
+        el.dom.src = tintCanvas(el.srcCanvas, color);
+      });
+    }
+
+    // ---- Connected-component labeling ----
+    function extractElements() {
+      const w = canvas.width, h = canvas.height;
+      const imageData = ctx.getImageData(0, 0, w, h);
+      const data = imageData.data;
+
+      const mask = new Uint8Array(w * h);
+      for (let i = 0; i < w * h; i++) {
+        const r = data[i * 4], g = data[i * 4 + 1], b = data[i * 4 + 2], a = data[i * 4 + 3];
+        if (a > 128 && (r + g + b) / 3 < THRESHOLD) mask[i] = 1;
+      }
+
+      const labels = new Int32Array(w * h);
+      let nextLabel = 1;
+      const parent = [0];
+
+      function find(x) {
+        while (parent[x] !== x) { parent[x] = parent[parent[x]]; x = parent[x]; }
+        return x;
+      }
+      function union(a, b) {
+        a = find(a); b = find(b);
+        if (a !== b) parent[Math.max(a, b)] = Math.min(a, b);
+      }
+
+      for (let y = 0; y < h; y++) {
+        for (let x = 0; x < w; x++) {
+          const idx = y * w + x;
+          if (!mask[idx]) continue;
+          const left = x > 0 ? labels[idx - 1] : 0;
+          const up = y > 0 ? labels[idx - w] : 0;
+          if (left && up) { labels[idx] = Math.min(left, up); union(left, up); }
+          else if (left) labels[idx] = left;
+          else if (up) labels[idx] = up;
+          else { labels[idx] = nextLabel; parent.push(nextLabel); nextLabel++; }
+        }
+      }
+
+      const boxes = {};
+      for (let y = 0; y < h; y++) {
+        for (let x = 0; x < w; x++) {
+          const idx = y * w + x;
+          if (!labels[idx]) continue;
+          const root = find(labels[idx]);
+          labels[idx] = root;
+          if (!boxes[root]) boxes[root] = { x1: x, y1: y, x2: x, y2: y, area: 0 };
+          const b = boxes[root];
+          if (x < b.x1) b.x1 = x; if (x > b.x2) b.x2 = x;
+          if (y < b.y1) b.y1 = y; if (y > b.y2) b.y2 = y;
+          b.area++;
+        }
+      }
+
+      let blobs = Object.values(boxes).filter(b => b.area >= MIN_AREA);
+      blobs.sort((a, b) => b.area - a.area);
+      blobs = blobs.slice(0, MAX_ELEMENTS);
+
+      for (const b of blobs) {
+        const bw = b.x2 - b.x1 + 1 + PADDING * 2;
+        const bh = b.y2 - b.y1 + 1 + PADDING * 2;
+        const c = document.createElement('canvas');
+        c.width = bw; c.height = bh;
+        const bctx = c.getContext('2d');
+        bctx.drawImage(canvas, b.x1 - PADDING, b.y1 - PADDING, bw, bh, 0, 0, bw, bh);
+        const id = bctx.getImageData(0, 0, bw, bh);
+        const d = id.data;
+        for (let i = 0; i < bw * bh; i++) {
+          const r = d[i*4], g = d[i*4+1], bl = d[i*4+2], a = d[i*4+3];
+          if (a < 128 || (r + g + bl) / 3 >= THRESHOLD) d[i*4+3] = 0;
+        }
+        bctx.putImageData(id, 0, 0);
+        elements.push({ srcCanvas: c, w: bw, h: bh });
+      }
+
+      const scaleRatio = Math.min(2.5, 1800 / img.width);
+      elements.forEach((el, i) => {
+        const dom = document.createElement('img');
+        dom.src = el.srcCanvas.toDataURL();
+        dom.className = 'element';
+        dom.style.width = (el.w * scaleRatio) + 'px';
+        dom.style.height = (el.h * scaleRatio) + 'px';
+        el.domW = el.w * scaleRatio;
+        el.domH = el.h * scaleRatio;
+        el.dom = dom;
+        // staggered transition per element
+        const delay = (Math.random() * 0.6).toFixed(2);
+        const dur = (1.2 + Math.random() * 0.8).toFixed(2);
+        dom.style.transition = `left ${dur}s cubic-bezier(0.22, 0.8, 0.36, 1) ${delay}s, `
+          + `top ${dur}s cubic-bezier(0.22, 0.8, 0.36, 1) ${delay}s, `
+          + `transform ${dur}s cubic-bezier(0.22, 0.8, 0.36, 1) ${delay}s`;
+        stage.appendChild(dom);
+      });
+    }
+
+    // ---- Pure random scatter with overlap avoidance ----
+    function shuffle() {
+      const sw = window.innerWidth;
+      const sh = window.innerHeight;
+      const margin = 40;
+      const placed = [];
+
+      // Random z-order
+      const order = [...elements].sort(() => Math.random() - 0.5);
+      order.forEach((el, i) => { el.dom.style.zIndex = i; });
+
+      for (const el of order) {
+        let bestX = 0, bestY = 0, bestOverlap = Infinity;
+
+        for (let attempt = 0; attempt < 30; attempt++) {
+          const x = margin + Math.random() * Math.max(0, sw - margin * 2 - el.domW);
+          const y = margin + Math.random() * Math.max(0, sh - margin * 2 - el.domH);
+          let overlap = 0;
+          for (const p of placed) {
+            const ox = Math.max(0, Math.min(x + el.domW, p.x + p.w) - Math.max(x, p.x));
+            const oy = Math.max(0, Math.min(y + el.domH, p.y + p.h) - Math.max(y, p.y));
+            overlap += ox * oy;
+          }
+          if (overlap < bestOverlap) {
+            bestOverlap = overlap; bestX = x; bestY = y;
+            if (overlap === 0) break;
+          }
+        }
+
+        placed.push({ x: bestX, y: bestY, w: el.domW, h: el.domH });
+
+        const rot = (Math.random() - 0.5) * 60;
+        const scale = 0.85 + Math.random() * 0.3;
+        el.dom.style.left = bestX + 'px';
+        el.dom.style.top = bestY + 'px';
+        el.dom.style.transform = `rotate(${rot}deg) scale(${scale})`;
+      }
+    }
+
+    // ---- Click: re-color + re-scatter ----
+    document.addEventListener('click', () => {
+      if (elements.length === 0) return;
+      if (firstClick) { hint.style.opacity = '0'; firstClick = false; }
+      tintElements();
+      shuffle();
+    });
+
+    window.addEventListener('resize', () => {
+      if (elements.length) shuffle();
+    });
+  </script>
+
+</body>
+</html>

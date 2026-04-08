@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Windowscape — Andrea Cheng</title>
+
+  <!-- Fonts: Archivo Black (display) + Nunito (body) — Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Nunito:wght@300;400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ===========================================
+       CSS CUSTOM PROPERTIES — SWISS MODERN THEME
+       Change :root values to retheme the whole deck
+       =========================================== */
+    :root {
+      /* Colors */
+      --white:      #ffffff;
+      --black:      #0a0a0a;
+      --red:        #ff3300;
+      --gray-ghost: rgba(0, 0, 0, 0.045);
+      --grid-light: rgba(0, 0, 0, 0.05);
+      --grid-dark:  rgba(255, 255, 255, 0.04);
+      --muted-dark: rgba(255, 255, 255, 0.38);
+      --muted-lite: rgba(10, 10, 10, 0.38);
+
+      /* Typography — ALL sizes use clamp() */
+      --font-display: 'Archivo Black', sans-serif;
+      --font-body:    'Nunito', sans-serif;
+
+      --sz-display:  clamp(3.2rem,  8.5vw,  10rem);
+      --sz-xl:       clamp(2.2rem,  5.5vw,  6.5rem);
+      --sz-lg:       clamp(1.4rem,  3vw,    3.5rem);
+      --sz-md:       clamp(1rem,    2vw,    2rem);
+      --sz-body:     clamp(0.72rem, 1.1vw,  0.95rem);
+      --sz-label:    clamp(0.58rem, 0.85vw, 0.72rem);
+      --sz-ghost:    clamp(7rem,   18vw,   22rem);
+      --sz-year:     clamp(4rem,   10vw,   13rem);
+
+      /* Spacing */
+      --pad:   clamp(2rem,   5vw,  5rem);
+      --gap:   clamp(0.8rem, 2vw,  2rem);
+      --gap-s: clamp(0.4rem, 1vw,  1rem);
+
+      /* Animation */
+      --ease-expo:     cubic-bezier(0.16, 1, 0.3, 1);
+      --dur-normal:    0.65s;
+      --dur-fast:      0.35s;
+    }
+
+    /* ===========================================
+       RESET
+       =========================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; -webkit-font-smoothing: antialiased; }
+
+    /* ===========================================
+       VIEWPORT BASE CSS (from viewport-base.css)
+       =========================================== */
+    html {
+      overflow-x: hidden;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
+
+    body { overflow-y: scroll; }
+
+    .slide {
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .slide-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-height: 100%;
+      overflow: hidden;
+      padding: var(--pad);
+    }
+
+    img, .img-block { max-width: 100%; max-height: min(50vh, 400px); object-fit: contain; }
+
+    @media (max-height: 700px) {
+      :root { --pad: clamp(1.2rem, 3vw, 2.5rem); --gap: clamp(0.5rem, 1.5vw, 1.2rem); --sz-display: clamp(2.5rem, 7vw, 7rem); }
+    }
+    @media (max-height: 600px) {
+      :root { --pad: clamp(0.8rem, 2.5vw, 1.5rem); --sz-display: clamp(2rem, 6vw, 5rem); }
+      .nav-dots, .keyboard-hint { display: none; }
+    }
+    @media (max-height: 500px) {
+      :root { --pad: clamp(0.5rem, 2vw, 1rem); --sz-display: clamp(1.5rem, 5vw, 4rem); }
+    }
+    @media (max-width: 600px) {
+      :root { --sz-display: clamp(2.5rem, 12vw, 5rem); }
+      .col-split { flex-direction: column !important; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ===========================================
+       SLIDE THEMES
+       =========================================== */
+    .s-dark  { background: var(--black); color: var(--white); }
+    .s-light { background: var(--white); color: var(--black); }
+
+    /* ===========================================
+       GRID BACKGROUND
+       =========================================== */
+    .grid-bg {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: clamp(44px, 5.5vw, 72px) clamp(44px, 5.5vw, 72px);
+    }
+    .s-dark  .grid-bg { --grid: var(--grid-dark); }
+    .s-light .grid-bg { --grid: var(--grid-light); }
+
+    /* ===========================================
+       TYPOGRAPHY
+       =========================================== */
+    .t-display {
+      font-family: var(--font-display);
+      font-size: var(--sz-display);
+      line-height: 0.88;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+    }
+
+    .t-xl {
+      font-family: var(--font-display);
+      font-size: var(--sz-xl);
+      line-height: 0.9;
+      letter-spacing: -0.015em;
+      text-transform: uppercase;
+    }
+
+    .t-lg {
+      font-family: var(--font-display);
+      font-size: var(--sz-lg);
+      line-height: 1;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+    }
+
+    .t-body {
+      font-family: var(--font-body);
+      font-size: var(--sz-body);
+      font-weight: 300;
+      line-height: 1.85;
+    }
+
+    .t-label {
+      font-family: var(--font-body);
+      font-size: var(--sz-label);
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .t-muted-dark { color: var(--muted-dark); }
+    .t-muted-lite { color: var(--muted-lite); }
+    .t-red        { color: var(--red); }
+
+    /* ===========================================
+       GHOST SECTION NUMBER
+       =========================================== */
+    .ghost-num {
+      font-family: var(--font-display);
+      font-size: var(--sz-ghost);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      color: var(--gray-ghost);
+      position: absolute;
+      pointer-events: none;
+      user-select: none;
+    }
+    .s-dark .ghost-num { color: rgba(255,255,255,0.04); }
+
+    /* ===========================================
+       RED ACCENT RULE
+       =========================================== */
+    .red-rule {
+      width: clamp(2rem, 4vw, 4.5rem);
+      height: 4px;
+      background: var(--red);
+    }
+
+    /* ===========================================
+       ANIMATIONS — triggered by .visible class
+       (added via IntersectionObserver)
+       =========================================== */
+    .reveal {
+      opacity: 0;
+      transform: translateX(calc(-1 * clamp(20px, 3vw, 40px)));
+      transition:
+        opacity   var(--dur-normal) var(--ease-expo),
+        transform var(--dur-normal) var(--ease-expo);
+    }
+    .reveal-up {
+      opacity: 0;
+      transform: translateY(clamp(16px, 2.5vh, 32px));
+      transition:
+        opacity   var(--dur-normal) var(--ease-expo),
+        transform var(--dur-normal) var(--ease-expo);
+    }
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.94);
+      transition: opacity 0.8s var(--ease-expo), transform 0.8s var(--ease-expo);
+    }
+    .visible .reveal,
+    .visible .reveal-up,
+    .visible .reveal-scale {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Stagger delays for sequential reveals */
+    .d1 { transition-delay: 0.08s; }
+    .d2 { transition-delay: 0.18s; }
+    .d3 { transition-delay: 0.28s; }
+    .d4 { transition-delay: 0.38s; }
+    .d5 { transition-delay: 0.50s; }
+    .d6 { transition-delay: 0.62s; }
+
+    /* ===========================================
+       LAYOUT HELPERS
+       =========================================== */
+    .col-split {
+      display: flex;
+      gap: var(--gap);
+      align-items: flex-start;
+      height: 100%;
+    }
+    .col-l { flex: 3; display: flex; flex-direction: column; justify-content: space-between; height: 100%; }
+    .col-r { flex: 2; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-end; height: 100%; }
+    .col-half { flex: 1; }
+
+    /* Image placeholder blocks */
+    .img-ph {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: #111;
+    }
+    .img-ph-b { background: #181818; }
+    .img-ph-c { background: #1e1e1e; }
+    .img-ph-d { background: #ccc; }
+
+    /* ===========================================
+       PROGRESS BAR
+       =========================================== */
+    .progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      background: var(--red);
+      z-index: 100;
+      width: 0;
+      transition: width 0.5s var(--ease-expo);
+    }
+
+    /* ===========================================
+       NAV DOTS
+       =========================================== */
+    .nav-dots {
+      position: fixed;
+      right: clamp(1rem, 2.5vw, 2rem);
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 100;
+    }
+
+    .nav-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(128,128,128,0.3);
+      border: none;
+      padding: 0;
+      transition: background 0.25s, transform 0.25s;
+    }
+
+    .nav-dot.active {
+      background: var(--red);
+      transform: scale(1.5);
+    }
+
+    /* ===========================================
+       SLIDE COUNTER
+       =========================================== */
+    .slide-counter {
+      position: fixed;
+      bottom: clamp(1rem, 2.5vh, 2rem);
+      left: var(--pad);
+      font-family: var(--font-body);
+      font-size: clamp(0.55rem, 0.8vw, 0.68rem);
+      letter-spacing: 0.18em;
+      color: rgba(128,128,128,0.5);
+      z-index: 100;
+    }
+
+    /* =====================================================
+       SLIDE-SPECIFIC STYLES
+       ===================================================== */
+
+    /* --- S01: TITLE ------------------------------------ */
+    #s01 .slide-content { justify-content: flex-end; padding-bottom: clamp(2.5rem, 6vh, 5rem); }
+
+    #s01 .col-r {
+      justify-content: flex-end;
+      padding-bottom: 0;
+    }
+
+    #s01 .year-block {
+      font-family: var(--font-display);
+      font-size: var(--sz-year);
+      line-height: 0.85;
+      letter-spacing: -0.03em;
+      color: var(--red);
+      text-align: right;
+    }
+
+    /* --- S02: CONCEPT ---------------------------------- */
+    #s02 .ghost-num { bottom: calc(-1 * clamp(1rem, 2vh, 2rem)); left: calc(-1 * clamp(1rem, 2vw, 2rem)); }
+
+    #s02 .concept-statement {
+      font-family: var(--font-display);
+      font-size: var(--sz-lg);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      color: var(--black);
+      max-width: 55vw;
+      margin: var(--gap) 0;
+    }
+
+    #s02 .concept-statement em { color: var(--red); font-style: normal; }
+
+    /* --- S03: OVERVIEW --------------------------------- */
+    #s03 .overview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1px 2fr;
+      gap: var(--gap);
+      height: 60%;
+      align-items: start;
+    }
+
+    #s03 .divider-line { background: rgba(10,10,10,0.12); }
+
+    #s03 .meta-item { margin-bottom: var(--gap-s); }
+    #s03 .meta-item .key { font-family: var(--font-body); font-size: clamp(0.55rem,0.75vw,0.65rem); letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted-lite); }
+    #s03 .meta-item .val { font-family: var(--font-display); font-size: clamp(0.8rem,1.4vw,1.2rem); letter-spacing: -0.01em; text-transform: uppercase; margin-top: 2px; }
+
+    #s03 .ghost-num { bottom: calc(-1 * clamp(2rem, 4vh, 4rem)); right: 0; }
+
+    /* --- S04: VISUAL WINDOWS --------------------------- */
+    #s04 { background: var(--black); }
+    #s04 .img-fill { position: absolute; inset: 0; }
+    #s04 .img-fill .img-ph { height: 100%; }
+    #s04 .overlay-text {
+      position: absolute; bottom: var(--pad); left: var(--pad); right: var(--pad);
+      display: flex; justify-content: space-between; align-items: flex-end;
+      z-index: 2;
+    }
+    #s04 .img-grid {
+      position: absolute; inset: 0;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 3px;
+    }
+    #s04 .img-grid .span-2 { grid-row: span 2; }
+
+    /* --- S05: VISUAL CURTAINS -------------------------- */
+    #s05 .curtain-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 4px;
+      height: clamp(40vh, 56vh, 65vh);
+      margin-top: var(--gap);
+      margin-bottom: var(--gap);
+    }
+    #s05 .curtain-grid .img-ph { background: #bbbab6; }
+    #s05 .curtain-grid .img-ph:nth-child(2) { background: #cacac6; }
+    #s05 .curtain-grid .img-ph:nth-child(3) { background: #b5b4b0; }
+
+    #s05 .curtain-labels {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 4px;
+    }
+
+    /* --- S06: VISUAL GRILLES --------------------------- */
+    #s06 .slide-content { flex-direction: row; padding: 0; gap: 0; }
+
+    #s06 .grille-left {
+      width: 38%;
+      padding: var(--pad);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      height: 100%;
+    }
+
+    #s06 .grille-right {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 2fr 1fr;
+      gap: 3px;
+      padding: 3px;
+      height: 100%;
+    }
+    #s06 .grille-right .span-2 { grid-row: span 2; }
+
+    /* --- S07: METHOD ----------------------------------- */
+    #s07 .method-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: clamp(2rem, 6vw, 6rem);
+      align-items: start;
+      margin-top: var(--gap);
+    }
+
+    #s07 .step-item {
+      display: flex;
+      align-items: baseline;
+      gap: clamp(0.8rem, 1.5vw, 1.5rem);
+      padding: clamp(0.6rem, 1.2vh, 1.2rem) 0;
+      border-top: 1px solid rgba(10,10,10,0.1);
+    }
+
+    #s07 .step-num {
+      font-family: var(--font-display);
+      font-size: clamp(0.6rem, 0.9vw, 0.78rem);
+      color: var(--red);
+      letter-spacing: 0.05em;
+      flex-shrink: 0;
+    }
+
+    #s07 .step-name {
+      font-family: var(--font-display);
+      font-size: clamp(0.9rem, 1.6vw, 1.5rem);
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+    }
+
+    /* --- S08: QUOTE ------------------------------------ */
+    #s08 .slide-content { justify-content: center; align-items: flex-start; }
+
+    #s08 .quote-mark {
+      font-family: var(--font-display);
+      font-size: clamp(4rem, 10vw, 12rem);
+      line-height: 0.8;
+      color: var(--red);
+      letter-spacing: -0.04em;
+    }
+
+    #s08 .quote-text {
+      font-family: var(--font-display);
+      font-size: clamp(1.1rem, 2.8vw, 3.2rem);
+      line-height: 1.05;
+      letter-spacing: -0.015em;
+      text-transform: uppercase;
+      color: var(--white);
+      max-width: 72vw;
+      margin-top: clamp(0.5rem, 1.5vh, 1.5rem);
+    }
+
+    #s08 .quote-attr {
+      margin-top: clamp(1rem, 3vh, 3rem);
+      display: flex;
+      align-items: center;
+      gap: clamp(0.6rem, 1.5vw, 1.5rem);
+    }
+
+    /* --- S09: CLOSING ---------------------------------- */
+    #s09 .slide-content {
+      justify-content: space-between;
+      padding-top: clamp(3rem, 7vh, 7rem);
+      padding-bottom: clamp(2.5rem, 6vh, 5rem);
+    }
+
+    #s09 .closing-word {
+      font-family: var(--font-display);
+      font-size: var(--sz-display);
+      letter-spacing: -0.025em;
+      text-transform: uppercase;
+      line-height: 0.85;
+      color: var(--black);
+    }
+    #s09 .closing-word.indent { padding-left: clamp(4rem, 12vw, 14rem); }
+    #s09 .closing-period { color: var(--red); }
+
+  </style>
+</head>
+<body>
+
+  <!-- Progress bar (red, top of screen) -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- Navigation dots (right edge) -->
+  <nav class="nav-dots" id="navDots" aria-label="Slide navigation"></nav>
+
+  <!-- Slide counter (bottom left) -->
+  <div class="slide-counter" id="slideCounter">01 / 09</div>
+
+
+  <!-- ══════════════════════════════════════════
+       S01 — TITLE
+       Dark · display title + red year
+       ══════════════════════════════════════════ -->
+  <section class="slide s-dark" id="s01" aria-label="Title slide">
+    <div class="grid-bg"></div>
+    <div class="slide-content">
+      <div class="col-split">
+
+        <div class="col-l">
+          <div class="t-label t-muted-dark reveal d1">Andrea Cheng</div>
+          <div>
+            <h1 class="t-display reveal d2">WINDOW<br>SCAPE</h1>
+            <div class="red-rule reveal d3" style="margin-top:clamp(1rem,2.5vh,2.5rem);"></div>
+            <p class="t-body t-muted-dark reveal d4" style="margin-top:clamp(0.8rem,1.5vh,1.5rem); max-width:38ch;">
+              A visual study of windows as architectural thresholds
+            </p>
+          </div>
+        </div>
+
+        <div class="col-r">
+          <div class="year-block reveal-scale d3">20<br>24</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       S02 — CONCEPT
+       Light · statement typography + ghost number
+       ══════════════════════════════════════════ -->
+  <section class="slide s-light" id="s02" aria-label="Concept">
+    <div class="grid-bg"></div>
+    <div class="ghost-num">01</div>
+    <div class="slide-content" style="justify-content:flex-end; padding-bottom:clamp(3rem,7vh,6rem);">
+
+      <div class="t-label t-muted-lite reveal d1" style="margin-bottom:var(--gap);">01 — Concept</div>
+
+      <p class="concept-statement reveal d2" id="cs">
+        A window is not<br>
+        an <em>opening.</em><br>
+        It is a frame<br>
+        for the world beyond.
+      </p>
+
+      <p class="t-body t-muted-lite reveal d4" style="margin-top:var(--gap); max-width:46ch;">
+        Windowscape contemplates the window not as architecture, but as a
+        compositional device — a plane that captures light, shadow, and
+        the passage of time without moving.
+      </p>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       S03 — OVERVIEW
+       Light · three-column metadata grid
+       ══════════════════════════════════════════ -->
+  <section class="slide s-light" id="s03" aria-label="Overview">
+    <div class="grid-bg"></div>
+    <div class="ghost-num" style="right:0; bottom:calc(-1 * clamp(2rem,4vh,4rem));">02</div>
+    <div class="slide-content">
+
+      <div class="t-label t-muted-lite reveal d1" style="margin-bottom:var(--gap);">02 — Overview</div>
+
+      <div class="overview-grid reveal d2">
+        <!-- Metadata column -->
+        <div>
+          <div class="meta-item">
+            <div class="key">Medium</div>
+            <div class="val">Print · Installation</div>
+          </div>
+          <div class="meta-item" style="margin-top:var(--gap);">
+            <div class="key">Year</div>
+            <div class="val">2024</div>
+          </div>
+          <div class="meta-item" style="margin-top:var(--gap);">
+            <div class="key">Category</div>
+            <div class="val">Visual Research</div>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="divider-line"></div>
+
+        <!-- Body text -->
+        <div>
+          <p class="t-body t-muted-lite" style="max-width:44ch;">
+            A systematic visual study of windows encountered across urban
+            environments. Each window is treated as a specimen — collected,
+            categorized, and recomposed to reveal unexpected resonances
+            between form, material, and quality of light.
+          </p>
+          <p class="t-body t-muted-lite" style="max-width:44ch; margin-top:var(--gap);">
+            The project asks: what does a window know about the space it
+            separates? What does it remember of all the light that has
+            passed through it?
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       S04 — VISUAL: WINDOWS
+       Dark · full-bleed image grid + text overlay
+       ══════════════════════════════════════════ -->
+  <section class="slide" id="s04" aria-label="Visual system — Windows">
+    <div class="img-grid">
+      <div class="img-ph span-2"></div>
+      <div class="img-ph img-ph-b"></div>
+      <div class="img-ph img-ph-c"></div>
+    </div>
+    <div class="overlay-text">
+      <div class="reveal d1">
+        <div class="t-label" style="color:rgba(255,255,255,0.4); margin-bottom:0.4rem;">03 — Visual System</div>
+        <div class="t-xl" style="color:#fff; line-height:0.9;">Windows</div>
+      </div>
+      <div class="t-label reveal d2" style="color:rgba(255,255,255,0.35); text-align:right;">
+        Frame as subject<br>
+        <span style="color:var(--red);">—</span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       S05 — VISUAL: CURTAINS
+       Light · three-column image row
+       ══════════════════════════════════════════ -->
+  <section class="slide s-light" id="s05" aria-label="Visual system — Curtains">
+    <div class="grid-bg"></div>
+    <div class="slide-content">
+
+      <div class="t-label t-muted-lite reveal d1" style="margin-bottom:var(--gap);">04 — Visual System</div>
+
+      <div class="curtain-grid reveal-scale d2">
+        <div class="img-ph"></div>
+        <div class="img-ph"></div>
+        <div class="img-ph"></div>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:baseline; margin-top:var(--gap-s);">
+        <div class="t-lg reveal d3">Curtains</div>
+        <div class="t-label t-muted-lite reveal d4">Soft thresholds — between visible and concealed</div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       S06 — VISUAL: GRILLES
+       Dark · left text / right image grid (full-height)
+       ══════════════════════════════════════════ -->
+  <section class="slide s-dark" id="s06" aria-label="Visual system — Grilles">
+    <div class="grid-bg"></div>
+    <div class="slide-content">
+
+      <div class="grille-left">
+        <div class="t-label t-muted-dark reveal d1">05 — Visual System</div>
+        <div>
+          <div class="t-lg reveal d2" style="line-height:1.15;">
+            Grilles<br>Textures<br>Surfaces
+          </div>
+          <div class="red-rule reveal d3" style="margin:var(--gap-s) 0;"></div>
+          <p class="t-body t-muted-dark reveal d4">
+            Structure made visible<br>through repetition and pattern
+          </p>
+        </div>
+      </div>
+
+      <div class="grille-right reveal-scale d2">
+        <div class="img-ph span-2"></div>
+        <div class="img-ph img-ph-b"></div>
+        <div class="img-ph img-ph-c"></div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       S07 — METHOD
+       Light · numbered steps + body text
+       ══════════════════════════════════════════ -->
+  <section class="slide s-light" id="s07" aria-label="Method">
+    <div class="grid-bg"></div>
+    <div class="slide-content">
+
+      <div class="t-label t-muted-lite reveal d1" style="margin-bottom:var(--gap);">06 — Method</div>
+
+      <div class="method-grid">
+
+        <!-- Step list -->
+        <div>
+          <div class="step-item reveal d2">
+            <span class="step-num">01</span>
+            <span class="step-name">Observation</span>
+          </div>
+          <div class="step-item reveal d3">
+            <span class="step-num">02</span>
+            <span class="step-name">Collection</span>
+          </div>
+          <div class="step-item reveal d4">
+            <span class="step-num">03</span>
+            <span class="step-name">Classification</span>
+          </div>
+          <div class="step-item reveal d5">
+            <span class="step-num">04</span>
+            <span class="step-name">Recomposition</span>
+          </div>
+        </div>
+
+        <!-- Body text -->
+        <div class="reveal d3" style="padding-top:clamp(0.5rem,1vh,1rem);">
+          <p class="t-body t-muted-lite" style="max-width:40ch;">
+            Each window was encountered and photographed in situ —
+            nothing staged. The camera held at eye level: the most
+            natural height of a person standing at a threshold.
+          </p>
+          <p class="t-body t-muted-lite" style="max-width:40ch; margin-top:var(--gap);">
+            The archive was then reorganized not chronologically, but by
+            visual logic: tone, geometry, transparency, and weight.
+            Distant windows began to speak to one another.
+          </p>
+          <p class="t-body t-muted-lite" style="max-width:40ch; margin-top:var(--gap);">
+            New adjacencies emerged. A window in one city recognized
+            itself in another.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       S08 — OUTCOME / QUOTE
+       Dark · large bold quote + red mark
+       ══════════════════════════════════════════ -->
+  <section class="slide s-dark" id="s08" aria-label="Outcome">
+    <div class="grid-bg"></div>
+    <div class="slide-content">
+
+      <div class="t-label t-muted-dark reveal d1" style="margin-bottom:var(--gap);">07 — Outcome</div>
+
+      <div class="quote-mark reveal d1">"</div>
+
+      <div class="quote-text reveal d2">
+        When you collect enough<br>
+        windows, you realize they<br>
+        are all asking the same<br>
+        question — what lies on<br>
+        the other side?
+      </div>
+
+      <div class="quote-attr reveal d4">
+        <div class="red-rule" style="width:clamp(1.5rem,2.5vw,2.5rem);"></div>
+        <span class="t-label t-muted-dark">The accumulation of frames becomes a frame itself</span>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       S09 — CLOSING
+       Light · asymmetric staggered text + credits
+       ══════════════════════════════════════════ -->
+  <section class="slide s-light" id="s09" aria-label="Closing">
+    <div class="grid-bg"></div>
+    <div class="slide-content">
+
+      <div>
+        <div class="closing-word reveal d1">LOOK</div>
+        <div class="closing-word indent reveal d2">AGAIN<span class="closing-period">.</span></div>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+        <div class="red-rule reveal d4"></div>
+        <div class="t-label t-muted-lite reveal d5" style="text-align:right;">
+          Windowscape &nbsp;·&nbsp; Andrea Cheng &nbsp;·&nbsp; 2024
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       PRESENTATION CONTROLLER
+       ══════════════════════════════════════════ -->
+  <script>
+    /* === SLIDE PRESENTATION CLASS === */
+    class SlidePresentation {
+      constructor() {
+        this.slides     = Array.from(document.querySelectorAll('.slide'));
+        this.total      = this.slides.length;
+        this.current    = 0;
+        this.scrolling  = false;
+
+        this.progressBar  = document.getElementById('progressBar');
+        this.slideCounter = document.getElementById('slideCounter');
+        this.navDots      = document.getElementById('navDots');
+        this.dots         = [];
+
+        this.buildNavDots();
+        this.setupIntersectionObserver();
+        this.setupKeyboardNav();
+        this.setupTouchNav();
+        this.setupWheelNav();
+        this.updateUI(0);
+      }
+
+      /* Build nav dot buttons */
+      buildNavDots() {
+        this.slides.forEach((_, i) => {
+          const btn = document.createElement('button');
+          btn.className = 'nav-dot';
+          btn.setAttribute('aria-label', `Slide ${i + 1}`);
+          btn.addEventListener('click', () => this.goTo(i));
+          this.navDots.appendChild(btn);
+          this.dots.push(btn);
+        });
+      }
+
+      /* IntersectionObserver: add .visible → triggers CSS animations */
+      setupIntersectionObserver() {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              const idx = this.slides.indexOf(entry.target);
+              if (idx !== -1) this.updateUI(idx);
+            }
+          });
+        }, { threshold: 0.55 });
+
+        this.slides.forEach(s => io.observe(s));
+      }
+
+      /* Keyboard: arrows, space, page up/down */
+      setupKeyboardNav() {
+        document.addEventListener('keydown', e => {
+          const fwd = e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown';
+          const bck = e.key === 'ArrowUp'   || e.key === 'ArrowLeft'  || e.key === 'PageUp';
+          if (fwd) { e.preventDefault(); this.goTo(this.current + 1); }
+          if (bck) { e.preventDefault(); this.goTo(this.current - 1); }
+        });
+      }
+
+      /* Touch: swipe up/down */
+      setupTouchNav() {
+        let startY = 0;
+        document.addEventListener('touchstart', e => { startY = e.touches[0].clientY; }, { passive: true });
+        document.addEventListener('touchend', e => {
+          const diff = startY - e.changedTouches[0].clientY;
+          if (Math.abs(diff) > 50) this.goTo(this.current + (diff > 0 ? 1 : -1));
+        }, { passive: true });
+      }
+
+      /* Mouse wheel: throttled */
+      setupWheelNav() {
+        let last = 0;
+        document.addEventListener('wheel', e => {
+          const now = Date.now();
+          if (now - last < 800) return;
+          last = now;
+          this.goTo(this.current + (e.deltaY > 0 ? 1 : -1));
+        }, { passive: true });
+      }
+
+      /* Navigate to slide index */
+      goTo(idx) {
+        idx = Math.max(0, Math.min(this.total - 1, idx));
+        this.current = idx;
+        this.slides[idx].scrollIntoView({ behavior: 'smooth' });
+        this.updateUI(idx);
+      }
+
+      /* Update progress bar, counter, dots */
+      updateUI(idx) {
+        this.current = idx;
+
+        if (this.progressBar) {
+          this.progressBar.style.width = ((idx + 1) / this.total * 100) + '%';
+        }
+
+        if (this.slideCounter) {
+          const n = String(idx + 1).padStart(2, '0');
+          const t = String(this.total).padStart(2, '0');
+          this.slideCounter.textContent = `${n} / ${t}`;
+        }
+
+        this.dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      }
+    }
+
+    new SlidePresentation();
+  </script>
+
+</body>
+</html>

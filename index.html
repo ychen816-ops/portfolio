@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Andrea Cheng — Portfolio</title>
+  <link rel="icon" type="image/png" href="images/favicon/Asset 2.png" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html" class="nav-logo" data-logo-hover></a>
+    <div class="nav-right">
+      <a href="archive.html" data-en="Archive" data-zh="归档">Archive</a>
+      <a href="about.html" data-en="About" data-zh="关于">About</a>
+      <button class="lang-toggle" aria-label="Switch language">
+        <span class="l-en">EN</span>
+        <span class="sep">/</span>
+        <span class="l-zh">中文</span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="page-content">
+
+    <!-- Project Grid — editorial 12-column rhythm -->
+    <div class="project-grid">
+
+      <!-- Row 1: 8-col landscape + 4-col portrait (asymmetric) -->
+
+      <!-- Bias Bingo — large landscape -->
+      <a href="biasbingo.html" class="project-card pg-8">
+        <div class="thumb">
+          <img src="images/biasbingo/01.png" alt="Bias Bingo" />
+          <div class="overlay">
+            <h2 data-en="Bias Bingo" data-zh="偏见宾果">Bias Bingo</h2>
+          </div>
+        </div>
+      </a>
+
+      <!-- Windowscape — narrow portrait -->
+      <a href="windowscape.html" class="project-card pg-4">
+        <div class="thumb">
+          <img src="images/windowscape/hero-image.png" alt="Windowscape" />
+          <div class="overlay">
+            <h2 data-en="Windowscape" data-zh="窗景">Windowscape</h2>
+          </div>
+        </div>
+      </a>
+
+      <!-- Row 2: Sweet Sin + Balcony — same height flex row -->
+      <div class="grid-row-2" style="grid-column: span 12;">
+        <!-- Sweet Sin — Coming Soon -->
+        <div class="project-card coming-soon">
+          <div class="thumb">
+            <img src="images/sweet-sin/sweet-sin-thumb.jpg" alt="Sweet Sin" style="object-fit: cover; object-position: center top;" />
+            <div class="overlay overlay-soon">
+              <h2 data-en="Coming Soon" data-zh="即将上线">Coming Soon</h2>
+            </div>
+          </div>
+        </div>
+
+        <!-- Balcony Metamorphosis -->
+        <a href="balcony.html" class="project-card">
+          <div class="thumb">
+            <img src="images/Balcony/Cover thunbnail.png" alt="Balcony Metamorphosis" style="object-fit: cover;" />
+            <div class="overlay">
+              <h2 data-en="Balcony Metamorphosis" data-zh="阳台蜕变">Balcony Metamorphosis</h2>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Row 3: Lumen Genesis — Coming Soon (full-width) -->
+      <div class="project-card pg-full coming-soon">
+        <div class="thumb">
+          <img src="images/lumen-genesis/hero-image-1.jpg" alt="Lumen Genesis" />
+          <div class="overlay overlay-soon">
+            <h2 data-en="Coming Soon" data-zh="即将上线">Coming Soon</h2>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.project-grid -->
+
+  </div><!-- /.page-content -->
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Andrea Cheng</p>
+    <ul class="footer-links">
+      <li><a href="#" data-en="Instagram" data-zh="Instagram">Instagram</a></li>
+      <li><a href="#" data-en="LinkedIn" data-zh="领英">LinkedIn</a></li>
+    </ul>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

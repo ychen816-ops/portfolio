@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Windowscape — Andrea Cheng</title>
+  <link rel="icon" type="image/png" href="images/favicon/Asset 2.png" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="page-windowscape">
+
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html" class="nav-logo" data-logo-hover></a>
+    <div class="nav-right">
+      <a href="archive.html" data-en="Archive" data-zh="归档">Archive</a>
+      <a href="about.html" data-en="About" data-zh="关于">About</a>
+      <button class="lang-toggle" aria-label="Switch language">
+        <span class="l-en">EN</span>
+        <span class="sep">/</span>
+        <span class="l-zh">中文</span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="page-content">
+
+    <!-- Hero: static full-width image -->
+    <div class="ws-hero">
+      <img src="images/windowscape/hero-image.png" alt="Windowscape — hero" />
+    </div>
+
+    <!-- Project Info Block -->
+    <div class="project-info-block">
+      <h1 data-en="Windowscape" data-zh="窗景">Windowscape</h1>
+      <div class="project-meta-list">
+        <div class="meta-item">
+          <span class="meta-label" data-en="Year" data-zh="年份">Year</span>
+          <span class="meta-value">2025</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label" data-en="Advisor" data-zh="导师">Advisor</span>
+          <span class="meta-value">Anton Ginzburg</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Concept + Overview -->
+    <div class="project-text-block">
+      <div class="text-section">
+        <h3 data-en="Concept" data-zh="概念">Concept</h3>
+        <p data-en="This project explores the window as a visual and cultural interface — a boundary that separates inside and outside while quietly revealing the life behind it. Through curtains, plants, protective grilles, and weathered surfaces, windows become more than architectural details; they record traces of identity, privacy, class, and time."
+           data-zh="本项目将窗户视为一种视觉与文化界面——一个分隔内外、却悄然揭示其后生活的边界。透过窗帘、植物、防护栏和风化的表面，窗户不再仅是建筑细节，而是记录身份、隐私、阶层与时间痕迹的载体。">
+          This project explores the window as a visual and cultural interface — a boundary that separates inside and outside while quietly revealing the life behind it. Through curtains, plants, protective grilles, and weathered surfaces, windows become more than architectural details; they record traces of identity, privacy, class, and time.
+        </p>
+      </div>
+      <div class="text-section">
+        <h3 data-en="Overview" data-zh="概述">Overview</h3>
+        <p data-en="By isolating windows from their original buildings and presenting them as a unified system, the project proposes a new way of reading the city through its most ordinary structures. The window becomes a lens through which everyday life, neighborhood memory, and the relationship between public observation and private existence can be understood."
+           data-zh="通过将窗户从原始建筑中剥离，并以统一的系统呈现，本项目提出了一种通过最日常的结构来解读城市的新方式。窗户成为一面透镜，借由它可以理解日常生活、社区记忆，以及公共观察与私人存在之间的关系。">
+          By isolating windows from their original buildings and presenting them as a unified system, the project proposes a new way of reading the city through its most ordinary structures. The window becomes a lens through which everyday life, neighborhood memory, and the relationship between public observation and private existence can be understood.
+        </p>
+      </div>
+    </div>
+
+    <!-- Secondary image (non-interactive, no lightbox) -->
+    <div class="ws-contained-img ws-no-lightbox">
+      <img src="images/windowscape/hero-image-2.png" alt="Windowscape — secondary" />
+    </div>
+
+    <!-- Poster Series -->
+    <div class="ws-section-label">
+      <h3 data-en="Poster Series" data-zh="海报系列">Poster Series</h3>
+    </div>
+    <div class="ws-poster-wrap">
+      <button class="ws-poster-arrow ws-poster-prev" aria-label="Scroll left">&#8592;</button>
+      <div class="ws-poster-track" id="wsPosterTrack">
+        <div class="ws-poster-item"><img src="images/windowscape/poster1.png" alt="Poster 1" /></div>
+        <div class="ws-poster-item"><img src="images/windowscape/poster2.png" alt="Poster 2" /></div>
+        <div class="ws-poster-item"><img src="images/windowscape/poster3.png" alt="Poster 3" /></div>
+        <div class="ws-poster-item"><img src="images/windowscape/poster4.png" alt="Poster 4" /></div>
+        <div class="ws-poster-item"><img src="images/windowscape/poster5.png" alt="Poster 5" /></div>
+        <div class="ws-poster-item"><img src="images/windowscape/poster6.png" alt="Poster 6" /></div>
+      </div>
+      <button class="ws-poster-arrow ws-poster-next" aria-label="Scroll right">&#8594;</button>
+    </div>
+    <p class="ws-frag-hint" data-en="drag or scroll to browse posters" data-zh="拖动或滚动以浏览海报">drag or scroll to browse posters</p>
+
+    <!-- Hero image 3 — interactive shuffle system -->
+    <div class="ws-contained-img ws-no-lightbox" id="shuffleWrap" style="position:relative;overflow:hidden;cursor:pointer;aspect-ratio:5/2;background:#fff;">
+      <div id="shuffleStage" style="position:absolute;inset:0;"></div>
+      <canvas id="shuffleCanvas" style="display:none;"></canvas>
+    </div>
+    <p class="ws-frag-hint" data-en="click to shuffle elements" data-zh="点击以打乱元素排列">click to shuffle elements</p>
+
+    <!-- Mockups — 2-left, 1-right grid -->
+    <div class="ws-mockups-grid">
+      <div class="ws-mockups-left">
+        <div class="ws-mockup-item"><img src="images/windowscape/mockup01.png" alt="Mockup 01" /></div>
+        <div class="ws-mockup-item"><img src="images/windowscape/mockup02.png" alt="Mockup 02" /></div>
+      </div>
+      <div class="ws-mockups-right">
+        <div class="ws-mockup-item"><img src="images/windowscape/mockup03.png" alt="Mockup 03" /></div>
+      </div>
+    </div>
+
+    <!-- Installation -->
+    <div class="ws-section-label">
+      <h3 data-en="Installation" data-zh="装置">Installation</h3>
+    </div>
+    <div class="ws-installation">
+      <div class="ws-install-item">
+        <img src="images/windowscape/installation01.png" alt="Installation 01" />
+      </div>
+      <div class="ws-install-item">
+        <img src="images/windowscape/installation02.png" alt="Installation 02" />
+      </div>
+    </div>
+
+    <!-- Full-bleed hero after scroll -->
+    <div class="ws-hero" style="margin-top:80px;">
+      <img src="images/windowscape/hero-image-after-scroll.png" alt="Windowscape — closing hero" />
+    </div>
+
+    <!-- Prev / Next Navigation -->
+    <div class="project-nav">
+      <a href="biasbingo.html">
+        <span class="pnav-dir" data-en="← Previous" data-zh="← 上一个">← Previous</span>
+        <span class="pnav-title" data-en="Bias Bingo" data-zh="偏见宾果">Bias Bingo</span>
+      </a>
+      <a href="index.html" class="pnav-all" data-en="All Work" data-zh="全部作品">All Work</a>
+      <a href="project.html" style="text-align:right;">
+        <span class="pnav-dir" data-en="Next →" data-zh="下一个 →">Next →</span>
+        <span class="pnav-title" data-en="Next Project" data-zh="下一个项目">Next Project</span>
+      </a>
+    </div>
+
+  </div><!-- /.page-content -->
+
+  <!-- Shuffle interaction for hero-image-3 -->
+  <script>
+  (function() {
+    const IMG_SRC = 'images/windowscape/hero-image-3.png';
+    const MIN_AREA = 80;
+    const MAX_ELEMENTS = 60;
+    const THRESHOLD = 100;
+    const PADDING = 8;
+    // render at 2x for crisp edges on retina
+    const DPR = window.devicePixelRatio || 1;
+    const UPSCALE = Math.max(DPR, 2);
+
+    const PALETTE = [
+      [234,197,45],[245,210,80],[255,223,100],[200,170,30],
+      [40,100,200],[60,140,220],[30,80,180],[80,160,240],
+      [30,170,100],[50,190,130],[20,140,80],[60,200,160],
+      [230,80,80],[220,120,200],[255,140,50],[160,90,220],
+      [255,100,120],[40,200,200],
+    ];
+
+    const wrap   = document.getElementById('shuffleWrap');
+    const stage  = document.getElementById('shuffleStage');
+    const cvs    = document.getElementById('shuffleCanvas');
+    const ctx    = cvs.getContext('2d', { willReadFrequently: true });
+
+    let elements = [];
+
+    function pickColor() {
+      const pool = Math.random() < 0.75 ? 12 : PALETTE.length;
+      return PALETTE[Math.floor(Math.random() * pool)];
+    }
+
+    function tintCanvas(src, color) {
+      const c = document.createElement('canvas');
+      c.width = src.width; c.height = src.height;
+      const t = c.getContext('2d');
+      t.drawImage(src, 0, 0);
+      const id = t.getImageData(0, 0, c.width, c.height);
+      const d = id.data;
+      for (let i = 0; i < d.length; i += 4) {
+        if (d[i+3] > 0) {
+          const lum = (d[i] + d[i+1] + d[i+2]) / 3 / 255;
+          d[i]   = Math.round(color[0] * (1 - lum * 0.6));
+          d[i+1] = Math.round(color[1] * (1 - lum * 0.6));
+          d[i+2] = Math.round(color[2] * (1 - lum * 0.6));
+          // keep original alpha for smooth edges
+        }
+      }
+      t.putImageData(id, 0, 0);
+      return c.toDataURL();
+    }
+
+    function tintAll() {
+      elements.forEach(el => { el.dom.src = tintCanvas(el.srcCanvas, pickColor()); });
+    }
+
+    function shuffle() {
+      const sw = wrap.clientWidth;
+      const sh = wrap.clientHeight;
+      const margin = 20;
+      const placed = [];
+      const order = [...elements].sort(() => Math.random() - 0.5);
+      order.forEach((el, i) => { el.dom.style.zIndex = i; });
+
+      for (const el of order) {
+        let bx = 0, by = 0, bo = Infinity;
+        for (let a = 0; a < 30; a++) {
+          const x = margin + Math.random() * Math.max(0, sw - margin*2 - el.domW);
+          const y = margin + Math.random() * Math.max(0, sh - margin*2 - el.domH);
+          let ov = 0;
+          for (const p of placed) {
+            ov += Math.max(0, Math.min(x+el.domW, p.x+p.w) - Math.max(x, p.x))
+                * Math.max(0, Math.min(y+el.domH, p.y+p.h) - Math.max(y, p.y));
+          }
+          if (ov < bo) { bo = ov; bx = x; by = y; if (!ov) break; }
+        }
+        placed.push({ x: bx, y: by, w: el.domW, h: el.domH });
+        const rot = (Math.random() - 0.5) * 60;
+        const sc  = 0.85 + Math.random() * 0.3;
+        el.dom.style.left = bx + 'px';
+        el.dom.style.top  = by + 'px';
+        el.dom.style.transform = `rotate(${rot}deg) scale(${sc})`;
+      }
+    }
+
+    function extract() {
+      const w = cvs.width, h = cvs.height;
+      const imgData = ctx.getImageData(0, 0, w, h);
+      const data = imgData.data;
+
+      // Build mask for labeling (binary: is this pixel dark enough?)
+      const mask = new Uint8Array(w * h);
+      for (let i = 0; i < w*h; i++) {
+        if (data[i*4+3] > 128 && (data[i*4]+data[i*4+1]+data[i*4+2])/3 < THRESHOLD) mask[i] = 1;
+      }
+
+      const labels = new Int32Array(w * h);
+      let nl = 1; const par = [0];
+      function find(x) { while(par[x]!==x){par[x]=par[par[x]];x=par[x];} return x; }
+      function union(a,b) { a=find(a);b=find(b); if(a!==b) par[Math.max(a,b)]=Math.min(a,b); }
+
+      for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+        const idx = y*w+x; if(!mask[idx]) continue;
+        const l = x>0?labels[idx-1]:0, u = y>0?labels[idx-w]:0;
+        if(l&&u){labels[idx]=Math.min(l,u);union(l,u);}
+        else if(l) labels[idx]=l; else if(u) labels[idx]=u;
+        else {labels[idx]=nl; par.push(nl); nl++;}
+      }
+
+      const boxes = {};
+      for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+        const idx=y*w+x; if(!labels[idx]) continue;
+        const r=find(labels[idx]); labels[idx]=r;
+        if(!boxes[r]) boxes[r]={x1:x,y1:y,x2:x,y2:y,area:0};
+        const b=boxes[r];
+        if(x<b.x1)b.x1=x; if(x>b.x2)b.x2=x;
+        if(y<b.y1)b.y1=y; if(y>b.y2)b.y2=y; b.area++;
+      }
+
+      let blobs = Object.values(boxes).filter(b => b.area >= MIN_AREA);
+      blobs.sort((a,b) => b.area - a.area);
+      blobs = blobs.slice(0, MAX_ELEMENTS);
+
+      const scaleRatio = wrap.clientWidth / cvs.width;
+
+      for (const b of blobs) {
+        const srcW = b.x2-b.x1+1+PADDING*2, srcH = b.y2-b.y1+1+PADDING*2;
+
+        // Create hi-res canvas (UPSCALE × source) for smooth edges
+        const c = document.createElement('canvas');
+        c.width  = srcW * UPSCALE;
+        c.height = srcH * UPSCALE;
+        const bc = c.getContext('2d');
+        bc.imageSmoothingEnabled = true;
+        bc.imageSmoothingQuality = 'high';
+        bc.scale(UPSCALE, UPSCALE);
+        bc.drawImage(cvs, b.x1-PADDING, b.y1-PADDING, srcW, srcH, 0, 0, srcW, srcH);
+        bc.setTransform(1,0,0,1,0,0); // reset scale for pixel ops
+
+        // Process pixels: fade white→transparent with smooth alpha gradient
+        const id = bc.getImageData(0, 0, c.width, c.height);
+        const d = id.data;
+        for (let i = 0; i < d.length; i += 4) {
+          const r = d[i], g = d[i+1], bl = d[i+2], a = d[i+3];
+          if (a < 10) { d[i+3] = 0; continue; }
+          const brightness = (r + g + bl) / 3;
+          if (brightness >= THRESHOLD) {
+            // Smooth falloff: pixels near threshold get partial alpha
+            const fade = Math.max(0, 1 - (brightness - THRESHOLD) / 80);
+            d[i+3] = Math.round(a * fade);
+          }
+          // dark pixels keep their original alpha → smooth edges
+        }
+        bc.putImageData(id, 0, 0);
+
+        const dom = document.createElement('img');
+        dom.src = c.toDataURL();
+        dom.style.position = 'absolute';
+        // Use auto for smooth browser scaling, NOT pixelated
+        dom.style.imageRendering = 'auto';
+        const dw = srcW * scaleRatio, dh = srcH * scaleRatio;
+        dom.style.width = dw+'px'; dom.style.height = dh+'px';
+        const delay = (Math.random()*0.6).toFixed(2);
+        const dur   = (1.2+Math.random()*0.8).toFixed(2);
+        dom.style.transition = `left ${dur}s cubic-bezier(.22,.8,.36,1) ${delay}s,`
+          + `top ${dur}s cubic-bezier(.22,.8,.36,1) ${delay}s,`
+          + `transform ${dur}s cubic-bezier(.22,.8,.36,1) ${delay}s`;
+        stage.appendChild(dom);
+        elements.push({ srcCanvas: c, dom, domW: dw, domH: dh });
+      }
+    }
+
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      cvs.width = img.width; cvs.height = img.height;
+      ctx.drawImage(img, 0, 0);
+      extract();
+      tintAll();
+      shuffle();
+    };
+    img.src = IMG_SRC;
+
+    wrap.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (!elements.length) return;
+      tintAll();
+      shuffle();
+    });
+
+    window.addEventListener('resize', () => { if (elements.length) shuffle(); });
+  })();
+  </script>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Andrea Cheng</p>
+    <ul class="footer-links">
+      <li><a href="#" data-en="Instagram" data-zh="Instagram">Instagram</a></li>
+      <li><a href="#" data-en="LinkedIn" data-zh="领英">LinkedIn</a></li>
+    </ul>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/andreacheng/Desktop/claudecode/**)",
+      "Read(//Users/andreacheng/Desktop/**)",
+      "Bash(sips -g pixelWidth -g pixelHeight \"/Users/andreacheng/Desktop/claudecode/portfolio/images/Balcony/Cover thunbnail.png\")"
+    ]
+  }
+}
