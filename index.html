@@ -6,34 +6,61 @@
   <title>Andrea Cheng — Portfolio</title>
   <link rel="icon" type="image/png" href="images/favicon/Asset 2.png" />
   <link rel="stylesheet" href="css/style.css" />
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&display=swap" rel="stylesheet" />
+  <script>if(location.hash==='#grid')document.documentElement.classList.add('grid-entry');</script>
+  <style>
+    /* Critical: must be in <head> so .grid-entry styles apply before first paint */
+    .grid-entry .home-hero { display: none; }
+    .grid-entry .shapes-overlay { display: none; }
+    .grid-entry .hero-info-bar {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0; right: 0;
+      padding: 10px var(--edge, clamp(16px, 3.5vw, 48px)) !important;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+      transition: none !important;
+    }
+    .grid-entry .hero-title { font-size: 1.6rem !important; }
+    .grid-entry .hero-subtitle { font-size: 11px !important; margin-top: 4px !important; }
+  </style>
 </head>
-<body>
+<body class="is-home">
 
-  <!-- Navigation -->
-  <nav>
-    <a href="index.html" class="nav-logo" data-logo-hover></a>
-    <div class="nav-right">
-      <a href="archive.html" data-en="Archive" data-zh="归档">Archive</a>
-      <a href="about.html" data-en="About" data-zh="关于">About</a>
-      <button class="lang-toggle" aria-label="Switch language">
-        <span class="l-en">EN</span>
-        <span class="sep">/</span>
-        <span class="l-zh">中文</span>
-      </button>
-    </div>
-  </nav>
+  <!-- Fixed shapes overlay — floats above all content -->
+  <div class="shapes-overlay" id="shapesOverlay"></div>
 
   <div class="page-content">
 
-    <!-- Project Grid — editorial 12-column rhythm -->
-    <div class="project-grid">
+    <!-- Hero spacer — pushes info bar to lower viewport -->
+    <div class="home-hero" id="homeHero"></div>
 
-      <!-- Row 1: 8-col landscape + 4-col portrait (asymmetric) -->
+    <!-- Info bar — scrolls naturally, shrinks while scrolling, sticks at top -->
+    <div class="hero-info-bar" id="heroInfoBar">
+      <div class="hero-info-left">
+        <h1 class="hero-title" data-logo-hover data-en="Andrea Cheng" data-zh="成也">Andrea Cheng</h1>
+        <p class="hero-subtitle" data-en="Visual Communication Designer" data-zh="视觉传达设计师">Visual Communication Designer</p>
+      </div>
+      <div class="hero-info-right">
+        <div class="hero-nav">
+          <a href="archive.html" data-en="Archive" data-zh="归档">Archive</a>
+          <a href="about.html" data-en="About" data-zh="关于">About</a>
+          <button class="lang-toggle" aria-label="Switch language">
+            <span class="l-en">EN</span>
+            <span class="sep">/</span>
+            <span class="l-zh">中文</span>
+          </button>
+        </div>
+        <a href="mailto:chengye1017@gmail.com" class="hero-contact">chengye1017@gmail.com</a>
+      </div>
+    </div>
+
+    <!-- Project Grid -->
+    <div class="project-grid" id="projectGrid">
 
       <!-- Bias Bingo — large landscape -->
       <a href="biasbingo.html" class="project-card pg-8">
         <div class="thumb">
-          <img src="images/biasbingo/01.png" alt="Bias Bingo" />
+          <img src="images/biasbingo/01.png" alt="Bias Bingo" loading="lazy" />
           <div class="overlay">
             <h2 data-en="Bias Bingo" data-zh="偏见宾果">Bias Bingo</h2>
           </div>
@@ -43,40 +70,37 @@
       <!-- Windowscape — narrow portrait -->
       <a href="windowscape.html" class="project-card pg-4">
         <div class="thumb">
-          <img src="images/windowscape/hero-image.png" alt="Windowscape" />
+          <img src="images/windowscape/hero-image.png" alt="Windowscape" loading="lazy" />
           <div class="overlay">
             <h2 data-en="Windowscape" data-zh="窗景">Windowscape</h2>
           </div>
         </div>
       </a>
 
-      <!-- Row 2: Sweet Sin + Balcony — same height flex row -->
-      <div class="grid-row-2">
-        <!-- Sweet Sin — Coming Soon -->
-        <div class="project-card coming-soon">
-          <div class="thumb">
-            <img src="images/sweet-sin/sweet-sin-thumb.jpg" alt="Sweet Sin" style="object-fit: cover; object-position: center top;" />
-            <div class="overlay overlay-soon">
-              <h2 data-en="Coming Soon" data-zh="即将上线">Coming Soon</h2>
-            </div>
+      <!-- Sweet Sin — vertical/portrait -->
+      <a href="sweetsin.html" class="project-card pg-vert">
+        <div class="thumb">
+          <img src="images/sweet-sin/sweet-sin-thumb.jpg" alt="Sweet Sin" loading="lazy" style="object-fit: cover; object-position: center top;" />
+          <div class="overlay">
+            <h2 data-en="Sweet Sin" data-zh="甜蜜之罪">Sweet Sin</h2>
           </div>
         </div>
+      </a>
 
-        <!-- Balcony Metamorphosis -->
-        <a href="balcony.html" class="project-card">
-          <div class="thumb">
-            <img src="images/Balcony/Cover thunbnail.png" alt="Balcony Metamorphosis" style="object-fit: cover;" />
-            <div class="overlay">
-              <h2 data-en="Balcony Metamorphosis" data-zh="阳台蜕变">Balcony Metamorphosis</h2>
-            </div>
+      <!-- Balcony Metamorphosis -->
+      <a href="balcony.html" class="project-card pg-stretch">
+        <div class="thumb">
+          <img src="images/Balcony/Cover thunbnail.png" alt="Balcony Metamorphosis" loading="lazy" style="object-fit: cover;" />
+          <div class="overlay">
+            <h2 data-en="Balcony Metamorphosis" data-zh="阳台蜕变">Balcony Metamorphosis</h2>
           </div>
-        </a>
-      </div>
+        </div>
+      </a>
 
-      <!-- Row 3: Lumen Genesis — Coming Soon (full-width) -->
+      <!-- Lumen Genesis — Coming Soon (full-width) -->
       <div class="project-card pg-full coming-soon">
         <div class="thumb">
-          <img src="images/lumen-genesis/hero-image-1.jpg" alt="Lumen Genesis" />
+          <img src="images/lumen-genesis/hero-image-1.jpg" alt="Lumen Genesis" loading="lazy" />
           <div class="overlay overlay-soon">
             <h2 data-en="Coming Soon" data-zh="即将上线">Coming Soon</h2>
           </div>
@@ -95,6 +119,446 @@
       <li><a href="https://www.linkedin.com/in/andrea-cheng-5682ab28a" target="_blank" rel="noopener" data-en="LinkedIn" data-zh="领英">LinkedIn</a></li>
     </ul>
   </footer>
+
+  <!-- Hero + info bar + shapes styles -->
+  <style>
+    /* --- Shapes overlay: fixed, clipped to hero + info bar only --- */
+    .shapes-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100vh;
+      z-index: 99;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    /* --- Hero spacer --- */
+    .home-hero {
+      position: relative;
+      width: 100%;
+      height: 65vh;
+      min-height: 320px;
+    }
+
+    /* --- Geometric shapes --- */
+    .geo {
+      position: absolute;
+      opacity: 0.45;
+      animation: geoFloat linear infinite;
+      transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .geo-sq { border-radius: 2px; }
+    .geo-circle { border-radius: 50%; }
+    .geo-tri {
+      width: 0 !important; height: 0 !important;
+      background: transparent !important;
+      border-left: var(--sz) solid transparent;
+      border-right: var(--sz) solid transparent;
+      border-bottom: calc(var(--sz) * 1.73) solid var(--clr);
+      opacity: 0.38;
+    }
+    .geo-diamond { transform: rotate(45deg); border-radius: 4px; }
+    .geo-ring {
+      border-radius: 50%;
+      background: transparent !important;
+      border: 3px solid var(--clr);
+      opacity: 0.32;
+    }
+    .geo-cross {
+      background: transparent !important;
+      position: relative;
+      opacity: 0.32;
+    }
+    .geo-cross::before, .geo-cross::after {
+      content: ''; position: absolute;
+      background: var(--clr); border-radius: 2px;
+    }
+    .geo-cross::before { width: 100%; height: 22%; top: 39%; left: 0; }
+    .geo-cross::after  { width: 22%; height: 100%; left: 39%; top: 0; }
+    .geo-symbol {
+      background: transparent !important;
+      display: flex; align-items: center; justify-content: center;
+      font-size: var(--sym-size, 28px);
+      line-height: 1;
+      opacity: 0.38;
+    }
+    .geo-half {
+      border-radius: 0 0 999px 999px;
+      overflow: hidden;
+      opacity: 0.38;
+    }
+
+    @keyframes geoFloat {
+      0%   { transform: var(--t0); }
+      25%  { transform: var(--t1); }
+      50%  { transform: var(--t2); }
+      75%  { transform: var(--t3); }
+      100% { transform: var(--t0); }
+    }
+
+    /* --- Info bar: scroll, shrink, stick --- */
+    .hero-info-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: 28px var(--edge) 24px;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s ease;
+    }
+    @supports not (backdrop-filter: blur(1px)) {
+      .hero-info-bar { background: rgba(255, 255, 255, 0.95); }
+    }
+    .hero-info-bar.is-stuck {
+      border-bottom-color: var(--border);
+    }
+
+    .hero-info-left {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .hero-title {
+      font-family: 'Cabinet Grotesk', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: var(--text);
+      display: flex;
+      flex-wrap: wrap;
+      line-height: 0.95;
+      white-space: nowrap;
+    }
+    html[lang="zh"] .hero-title {
+      letter-spacing: 0.4em;
+    }
+    html[lang="zh"] .hero-title .logo-char {
+      width: 1.15em;
+    }
+    .hero-title .logo-char {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 0.58em;
+      text-align: center;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  color 0.25s ease;
+      will-change: transform, color;
+      cursor: default;
+    }
+    .hero-title .logo-char.is-space { width: 0.22em; pointer-events: none; }
+    .hero-title .logo-char.is-symbol { animation: symbolPop 0.25s cubic-bezier(0.22, 0.61, 0.36, 1) forwards; }
+    .hero-title .logo-char.is-returning { animation: symbolReturn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+
+    .hero-subtitle {
+      font-family: 'Cabinet Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    .hero-info-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .hero-nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hero-nav a,
+    .hero-nav .lang-toggle {
+      font-family: var(--font);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 6px 16px;
+      border: 1px solid var(--border);
+      border-radius: 9999px;
+      background: none;
+      transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .hero-nav a:hover,
+    .hero-nav .lang-toggle:hover {
+      color: #fff;
+      background: #000;
+      border-color: #000;
+    }
+    .hero-nav .lang-toggle {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .hero-nav .sep {
+      color: var(--border);
+      font-size: 10px;
+    }
+    .hero-contact {
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      transition: color 0.2s ease;
+    }
+    .hero-contact:hover {
+      color: var(--text);
+    }
+
+    @media (max-width: 600px) {
+      .home-hero { height: 50vh; min-height: 200px; }
+      .hero-info-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 20px 16px 18px;
+      }
+      .hero-title { font-size: 2.2rem; }
+      .hero-info-right { align-items: flex-start; }
+      .hero-nav { gap: 8px; }
+      .hero-nav a, .hero-nav .lang-toggle { padding: 5px 12px; font-size: 10px; }
+      .hero-contact { font-size: 11px; }
+    }
+  </style>
+
+  <!-- Geometric shapes + scroll animation + interactions -->
+  <script>
+  (function() {
+    /* ---- Geometric shapes ---- */
+    const container = document.getElementById('shapesOverlay');
+    if (!container) return;
+
+    /* Deeper, more saturated palette — no pastels or pinks */
+    const COLORS = [
+      '#c62828', '#d84315', '#e65100',   /* deep red / burnt orange */
+      '#f9a825', '#f57f17',               /* warm amber / gold */
+      '#1565c0', '#0d47a1', '#1a237e',   /* deep blue / navy */
+      '#00695c', '#2e7d32', '#33691e',   /* teal / forest green */
+      '#4527a0', '#6a1b9a',               /* deep purple */
+      '#37474f', '#263238',               /* charcoal / slate */
+    ];
+
+    const SHAPES = [
+      'geo-sq', 'geo-circle', 'geo-diamond', 'geo-ring',
+      'geo-tri', 'geo-cross', 'geo-symbol', 'geo-half',
+    ];
+    const SYMBOL_CHARS = ['◆', '✦', '✶', '▲', '●', '■', '◇', '△', '○'];
+    const geoEls = [];
+    const COUNT = 28;
+
+    for (let i = 0; i < COUNT; i++) {
+      const el = document.createElement('div');
+      const shape = SHAPES[Math.floor(Math.random() * SHAPES.length)];
+      const color = COLORS[Math.floor(Math.random() * COLORS.length)];
+      const size = 14 + Math.random() * 110;
+
+      el.className = 'geo ' + shape;
+      el.style.setProperty('--clr', color);
+      el.style.setProperty('--sz', size / 2 + 'px');
+
+      if (shape === 'geo-symbol') {
+        const sym = SYMBOL_CHARS[Math.floor(Math.random() * SYMBOL_CHARS.length)];
+        el.textContent = sym;
+        el.style.color = color;
+        el.style.setProperty('--sym-size', size * 0.65 + 'px');
+        el.style.width = size + 'px';
+        el.style.height = size + 'px';
+      } else if (shape === 'geo-cross' || shape === 'geo-half') {
+        el.style.width = size + 'px';
+        el.style.height = shape === 'geo-half' ? size / 2 + 'px' : size + 'px';
+        if (shape === 'geo-half') el.style.background = color;
+      } else if (shape !== 'geo-tri' && shape !== 'geo-ring') {
+        el.style.width = size + 'px';
+        el.style.height = size + 'px';
+        el.style.background = color;
+      } else if (shape === 'geo-ring') {
+        el.style.width = size + 'px';
+        el.style.height = size + 'px';
+        el.style.borderColor = color;
+      }
+
+      const x = 2 + Math.random() * 94;
+      const y = 2 + Math.random() * 94;
+      el.style.left = x + '%';
+      el.style.top = y + '%';
+
+      // Floating keyframes — wide drift
+      const dx1 = (Math.random() - 0.5) * 70;
+      const dy1 = (Math.random() - 0.5) * 60;
+      const dx2 = (Math.random() - 0.5) * 70;
+      const dy2 = (Math.random() - 0.5) * 60;
+      const dx3 = (Math.random() - 0.5) * 70;
+      const dy3 = (Math.random() - 0.5) * 60;
+      const r0 = Math.random() * 360;
+      const r1 = r0 + (Math.random() - 0.5) * 120;
+      const r2 = r0 + (Math.random() - 0.5) * 120;
+      const r3 = r0 + (Math.random() - 0.5) * 120;
+
+      const base = shape === 'geo-diamond' ? 'rotate(45deg)' : '';
+      el.style.setProperty('--t0', base + ` translate(0px, 0px) rotate(${r0}deg)`);
+      el.style.setProperty('--t1', base + ` translate(${dx1}px, ${dy1}px) rotate(${r1}deg)`);
+      el.style.setProperty('--t2', base + ` translate(${dx2}px, ${dy2}px) rotate(${r2}deg)`);
+      el.style.setProperty('--t3', base + ` translate(${dx3}px, ${dy3}px) rotate(${r3}deg)`);
+
+      const dur = 20 + Math.random() * 30;
+      el.style.animationDuration = dur + 's';
+      el.style.animationDelay = -(Math.random() * dur) + 's';
+
+      container.appendChild(el);
+      geoEls.push({ el, cx: x, cy: y, size });
+    }
+
+    /* ---- Mouse repel interaction ---- */
+    const hero = document.getElementById('homeHero');
+    if (hero) {
+      const REPEL_STRENGTH = 40;
+
+      hero.addEventListener('mousemove', function(e) {
+        const rect = container.getBoundingClientRect();
+        const mx = ((e.clientX - rect.left) / rect.width) * 100;
+        const my = ((e.clientY - rect.top) / rect.height) * 100;
+
+        for (const g of geoEls) {
+          const dx = g.cx - mx;
+          const dy = g.cy - my;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 36) {
+            const angle = Math.atan2(dy, dx);
+            const force = (1 - dist / 36) * REPEL_STRENGTH;
+            g.el.style.translate = Math.cos(angle) * force + 'px ' + Math.sin(angle) * force + 'px';
+          } else {
+            g.el.style.translate = '';
+          }
+        }
+      });
+
+      hero.addEventListener('mouseleave', function() {
+        for (const g of geoEls) g.el.style.translate = '';
+      });
+
+      /* ---- Click to scatter ---- */
+      hero.addEventListener('click', function(e) {
+        const rect = container.getBoundingClientRect();
+        const cx = ((e.clientX - rect.left) / rect.width) * 100;
+        const cy = ((e.clientY - rect.top) / rect.height) * 100;
+
+        for (const g of geoEls) {
+          const dx = g.cx - cx;
+          const dy = g.cy - cy;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 50) {
+            const angle = Math.atan2(dy, dx);
+            const force = (1 - dist / 50) * 80;
+            g.el.style.transition = 'translate 0.15s ease-out';
+            g.el.style.translate = Math.cos(angle) * force + 'px ' + Math.sin(angle) * force + 'px';
+            setTimeout(() => {
+              g.el.style.transition = 'translate 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+              g.el.style.translate = '';
+            }, 150);
+          }
+        }
+      });
+    }
+
+    /* ---- Scroll-based shrink animation ---- */
+    const infoBar = document.getElementById('heroInfoBar');
+    const heroSection = document.getElementById('homeHero');
+
+    if (infoBar && heroSection) {
+      const titleEl  = infoBar.querySelector('.hero-title');
+      const subEl    = infoBar.querySelector('.hero-subtitle');
+
+      const mob = window.innerWidth <= 600;
+      const TITLE_S = mob ? 2.2 : 3.5, TITLE_E = 1.6;
+      const SUB_S   = mob ? 11 : 13,   SUB_E   = 11;
+      const PT_S    = mob ? 20 : 28,    PT_E    = 10;
+      const PB_S    = mob ? 18 : 24,    PB_E    = 10;
+      const SMT_S   = mob ? 6 : 10,     SMT_E   = 4;
+
+      function lerp(a, b, t) { return a + (b - a) * t; }
+      function ease(t) { return 1 - Math.pow(1 - t, 2.5); }
+
+      let ticking = false;
+      function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function() {
+          const heroH = heroSection.offsetHeight;
+          const raw = Math.min(Math.max(window.scrollY / heroH, 0), 1);
+          const t = ease(raw);
+
+          titleEl.style.fontSize    = lerp(TITLE_S, TITLE_E, t) + 'rem';
+          subEl.style.fontSize      = lerp(SUB_S, SUB_E, t) + 'px';
+          subEl.style.marginTop     = lerp(SMT_S, SMT_E, t) + 'px';
+          infoBar.style.paddingTop  = lerp(PT_S, PT_E, t) + 'px';
+          infoBar.style.paddingBottom = lerp(PB_S, PB_E, t) + 'px';
+
+          var barBottom = infoBar.getBoundingClientRect().bottom;
+          container.style.height = barBottom + 'px';
+
+          ticking = false;
+        });
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      /* ---- Stuck detection ---- */
+      const observer = new IntersectionObserver(
+        function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              infoBar.classList.remove('is-stuck');
+            } else {
+              infoBar.classList.add('is-stuck');
+            }
+          });
+        },
+        { threshold: 0 }
+      );
+      observer.observe(heroSection);
+
+      /* ---- Handle #grid hash ---- */
+      if (document.documentElement.classList.contains('grid-entry')) {
+        history.replaceState(null, '', window.location.pathname);
+        document.documentElement.classList.remove('grid-entry');
+
+        /* Set shrunk styles synchronously */
+        titleEl.style.fontSize      = TITLE_E + 'rem';
+        subEl.style.fontSize        = SUB_E + 'px';
+        subEl.style.marginTop       = SMT_E + 'px';
+        infoBar.style.paddingTop    = PT_E + 'px';
+        infoBar.style.paddingBottom = PB_E + 'px';
+        infoBar.classList.add('is-stuck');
+
+        /* Scroll to exact bar position so sticky locks at top:0 */
+        document.documentElement.style.scrollBehavior = 'auto';
+        window.scrollTo(0, infoBar.offsetTop);
+        container.style.height = infoBar.getBoundingClientRect().bottom + 'px';
+
+        requestAnimationFrame(function() {
+          document.documentElement.style.scrollBehavior = '';
+        });
+      }
+    }
+  })();
+  </script>
 
   <script src="js/main.js"></script>
 </body>

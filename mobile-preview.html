@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mobile Preview — Andrea Cheng Portfolio</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #e0e0e0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 16px;
+      min-height: 100vh;
+    }
+    h1 {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 8px;
+    }
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .controls button {
+      padding: 8px 18px;
+      border: 1px solid #bbb;
+      background: #fff;
+      border-radius: 6px;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .controls button:hover { background: #111; color: #fff; border-color: #111; }
+    .controls button.active { background: #111; color: #fff; border-color: #111; }
+    .phone-frame {
+      width: 393px;
+      height: 852px;
+      border: 8px solid #1a1a1a;
+      border-radius: 40px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 0 1px rgba(0,0,0,0.1);
+      background: #fff;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .phone-frame::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 28px;
+      background: #1a1a1a;
+      border-radius: 0 0 16px 16px;
+      z-index: 10;
+    }
+    .phone-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .page-label {
+      font-size: 11px;
+      color: #888;
+      margin-top: 12px;
+      letter-spacing: 0.06em;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Mobile Preview</h1>
+  <div class="controls">
+    <button class="active" onclick="navigate('index.html', this)">Home</button>
+    <button onclick="navigate('biasbingo.html', this)">Bias Bingo</button>
+    <button onclick="navigate('windowscape.html', this)">Windowscape</button>
+    <button onclick="navigate('balcony.html', this)">Balcony</button>
+    <button onclick="navigate('about.html', this)">About</button>
+    <button onclick="navigate('archive.html', this)">Archive</button>
+  </div>
+
+  <div class="phone-frame">
+    <iframe id="preview" src="index.html"></iframe>
+  </div>
+  <p class="page-label" id="pageLabel">index.html</p>
+
+  <script>
+    function navigate(page, btn) {
+      document.getElementById('preview').src = page;
+      document.getElementById('pageLabel').textContent = page;
+      document.querySelectorAll('.controls button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+  </script>
+</body>
+</html>

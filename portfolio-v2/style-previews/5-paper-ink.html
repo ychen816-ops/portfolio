@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Style E — Paper & Ink</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Source Serif 4', serif;
+    background: #faf9f7;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+  }
+  .content {
+    max-width: 680px;
+    width: 100%;
+  }
+  .eyebrow {
+    font-family: 'Source Serif 4', serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #c41e3a;
+    margin-bottom: 32px;
+  }
+  /* Drop cap effect */
+  .dropcap {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5.5rem;
+    font-weight: 300;
+    line-height: 0.8;
+    float: left;
+    margin-right: 12px;
+    margin-top: 4px;
+    color: #1a1a1a;
+  }
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 5vw, 3.8rem);
+    font-weight: 300;
+    color: #1a1a1a;
+    line-height: 1.15;
+    margin-bottom: 32px;
+    letter-spacing: -0.01em;
+  }
+  h1 em {
+    font-style: italic;
+    color: #c41e3a;
+  }
+  hr.elegant {
+    border: none;
+    height: 1px;
+    background: linear-gradient(to right, #1a1a1a, transparent);
+    max-width: 200px;
+    margin-bottom: 28px;
+  }
+  .bio {
+    font-size: 16px;
+    line-height: 1.9;
+    color: #444;
+    margin-bottom: 40px;
+  }
+  .bio::first-line {
+    font-variant: small-caps;
+    letter-spacing: 0.04em;
+  }
+  .pull-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+    font-style: italic;
+    color: #1a1a1a;
+    border-left: 3px solid #c41e3a;
+    padding-left: 24px;
+    margin: 36px 0;
+    line-height: 1.5;
+  }
+  .projects {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 36px;
+  }
+  .project-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .proj-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+  .proj-detail {
+    font-size: 12px;
+    color: #aaa;
+    font-style: italic;
+  }
+  .meta {
+    margin-top: 48px;
+    font-size: 12px;
+    color: #ccc;
+  }
+  .style-name {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #c41e3a;
+    letter-spacing: 0.08em;
+  }
+</style>
+</head>
+<body>
+  <div class="content">
+    <div class="eyebrow">Portfolio Preview</div>
+    <h1>Andrea Cheng — <em>Design & Art</em></h1>
+    <hr class="elegant">
+    <p class="bio"><span class="dropcap">D</span>esigner and artist living between Hangzhou, China and New York. Her work moves fluidly across painting, digital illustration, visual design, brand identity, editorial and print, installation, and code-driven visual experience.</p>
+    <div class="pull-quote">"Translating every narrative into a visual language that resonates."</div>
+    <div class="projects">
+      <div class="project-row">
+        <span class="proj-name">Windowscape</span>
+        <span class="proj-detail">2025 — Visual & Cultural Interface</span>
+      </div>
+      <div class="project-row">
+        <span class="proj-name">Bias Bingo</span>
+        <span class="proj-detail">2025 — Gender Bias in Design Language</span>
+      </div>
+      <div class="project-row">
+        <span class="proj-name">Balcony Metamorphosis</span>
+        <span class="proj-detail">2024 — Urban Housing Transformation</span>
+      </div>
+    </div>
+    <div class="meta">
+      Literary · Drop caps · Pull quotes · Cormorant Garamond + Source Serif 4
+    </div>
+  </div>
+  <div class="style-name">Style E — Paper & Ink</div>
+</body>
+</html>

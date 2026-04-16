@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sweet Sin — Andrea Cheng</title>
+  <link rel="icon" type="image/png" href="images/favicon/Asset 2.png" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ==============================
+       Sweet Sin — Page-specific styles
+       ============================== */
+
+    body.page-sweetsin {
+      background: #ffffff;
+      min-height: 100vh;
+    }
+
+    /* Kill the global 90px page-content offset */
+    body.page-sweetsin .page-content {
+      padding-top: 0;
+    }
+
+    /* Hero — full bleed */
+    .ss-hero {
+      padding: 0;
+      margin-bottom: 0;
+    }
+    .ss-hero img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* Full-width image section */
+    .ss-fullwidth { padding: 0; margin-bottom: 0; }
+    .ss-fullwidth img { display: block; width: 100%; height: auto; }
+
+    /* Booklet row — image + video side by side, video matches image height */
+    .ss-booklet-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      padding: 0 var(--edge);
+      margin-bottom: 80px;
+    }
+    .ss-booklet-row img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .ss-booklet-row .ss-video-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+    .ss-booklet-row .ss-video-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* Section label (shared by Booklet & Installation) */
+    .ss-section-label {
+      padding: 0 var(--edge);
+      margin-bottom: 24px;
+      margin-top: 80px;
+    }
+    .ss-section-label h3 {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
+
+    /* Single image — full width */
+    .ss-single {
+      padding: 0;
+      margin-bottom: 80px;
+    }
+    .ss-single img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Layout image — full width */
+    .ss-layout {
+      padding: 0;
+      margin-bottom: 80px;
+    }
+    .ss-layout img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Installation — all three images stacked vertically */
+    .ss-installation {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 0 var(--edge);
+      margin-bottom: 80px;
+    }
+    .ss-installation img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .ss-booklet-row { grid-template-columns: 1fr; }
+      .ss-booklet-row .ss-video-wrap { aspect-ratio: 16/9; }
+    }
+    @media (max-width: 600px) {
+      .ss-booklet-row { padding: 0 16px; }
+      .ss-section-label { padding: 0 16px; }
+      .ss-installation { padding: 0 16px; }
+    }
+  </style>
+</head>
+<body class="page-sweetsin">
+
+  <!-- Info Bar -->
+  <div class="page-info-bar">
+    <div class="bar-left">
+      <a href="index.html#grid" style="text-decoration:none;color:inherit;">
+        <h1 class="bar-title" data-logo-hover data-en="Andrea Cheng" data-zh="成也">Andrea Cheng</h1>
+      </a>
+      <p class="bar-subtitle" data-en="Visual Communication Designer" data-zh="视觉传达设计师">Visual Communication Designer</p>
+    </div>
+    <div class="bar-right">
+      <div class="bar-nav">
+        <a href="archive.html" data-en="Archive" data-zh="归档">Archive</a>
+        <a href="about.html" data-en="About" data-zh="关于">About</a>
+        <button class="lang-toggle" aria-label="Switch language">
+          <span class="l-en">EN</span>
+          <span class="sep">/</span>
+          <span class="l-zh">中文</span>
+        </button>
+      </div>
+      <a href="mailto:chengye1017@gmail.com" class="bar-contact">chengye1017@gmail.com</a>
+    </div>
+  </div>
+
+  <div class="page-content">
+
+    <!-- 1. Hero GIF — full bleed, cropped from top -->
+    <div class="ss-hero">
+      <img src="images/sweet-sin/采用图/herogif.GIF" alt="Sweet Sin — hero" />
+    </div>
+
+    <!-- 2. Project Info Block (matches Windowscape/Balcony structure) -->
+    <div class="project-info-block">
+      <h1 data-en="Sweet Sin" data-zh="甜蜜之罪">Sweet Sin</h1>
+      <div class="project-meta-list">
+        <div class="meta-item">
+          <span class="meta-label" data-en="Year" data-zh="年份">Year</span>
+          <span class="meta-value">2024</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Concept + Overview (uses global lang toggle via data-en/data-zh) -->
+    <div class="project-text-block">
+      <div class="text-section">
+        <h3 data-en="Concept" data-zh="概念">Concept</h3>
+        <p data-en="Sweetness is never innocent. Sugar, often associated with pleasure and indulgence, carries a hidden history of exploitation and violence. This project reexamines sweetness not as a neutral or joyful experience, but as a product shaped by systems of colonialism, forced labor, and global inequality. By reframing sugar as both a material and a metaphor, Sweet Sin questions the cost behind everyday consumption and exposes the dissonance between surface pleasure and historical reality."
+           data-zh="甜，从来不是无辜的。糖常被视为愉悦与享乐的象征，但在这种轻盈的感官体验背后，却隐藏着一段被忽视的历史——殖民、奴役与剥削。本项目试图重新审视"甜"的意义：它并非单纯的感官快感，而是一种被权力结构与历史条件塑造的产物。通过将糖既作为物质也作为隐喻来处理，Sweet Sin 揭示了日常消费背后被掩盖的代价，并质疑这种"甜"的表象与其真实来源之间的断裂。">
+          Sweetness is never innocent. Sugar, often associated with pleasure and indulgence, carries a hidden history of exploitation and violence. This project reexamines sweetness not as a neutral or joyful experience, but as a product shaped by systems of colonialism, forced labor, and global inequality. By reframing sugar as both a material and a metaphor, Sweet Sin questions the cost behind everyday consumption and exposes the dissonance between surface pleasure and historical reality.
+        </p>
+      </div>
+      <div class="text-section">
+        <h3 data-en="Overview" data-zh="概述">Overview</h3>
+        <p data-en="Sweet Sin is a speculative visual project that reconstructs the forgotten narratives behind sugar production. Drawing from the history of colonial sugar plantations, the project highlights the exploitation of enslaved Africans whose labor fueled the global sugar economy. The work contrasts the polished, seductive aesthetics of desserts with underlying structures of violence. Elements such as exaggerated sweetness, flowing syrup, and ornamental displays are reinterpreted as symbols of excess, control, and hidden suffering. Through installation, visual mapping, and storytelling, the project creates an immersive environment where sweetness becomes unsettling. A dessert stand is transformed into a theatrical structure—supported by sugarcane-like forms and covered in deep red surfaces—where syrup flows like a trace of labor and sacrifice. Rather than presenting history as distant and resolved, Sweet Sin brings it into the present, inviting viewers to reconsider their everyday relationship with consumption and the invisible systems that sustain it."
+           data-zh="Sweet Sin 是一个基于历史重构的视觉叙事项目，聚焦于殖民时期的制糖产业及其背后的奴隶劳动体系。项目通过挖掘甘蔗种植园的历史，指向被全球消费体系所遗忘的身体与劳动。在视觉表达上，项目刻意强化甜点的精致与诱惑感，并将其与暴力结构并置：过度饱和的色彩、流动的糖浆、装饰性的形式，既象征欲望，也暗示控制与消耗。装置部分以"甜品摊"为原型进行转译：螺旋结构、甘蔗形支撑、红色台布与不断流淌的糖浆，共同构建出一个既诱人又不安的空间。项目并不试图将这段历史封存为过去，而是将其重新带回当下，使观者在熟悉的消费语境中产生偏差与迟疑，从而重新思考"甜"这一日常经验背后的结构。">
+          Sweet Sin is a speculative visual project that reconstructs the forgotten narratives behind sugar production. Drawing from the history of colonial sugar plantations, the project highlights the exploitation of enslaved Africans whose labor fueled the global sugar economy. The work contrasts the polished, seductive aesthetics of desserts with underlying structures of violence. Elements such as exaggerated sweetness, flowing syrup, and ornamental displays are reinterpreted as symbols of excess, control, and hidden suffering. Through installation, visual mapping, and storytelling, the project creates an immersive environment where sweetness becomes unsettling. A dessert stand is transformed into a theatrical structure—supported by sugarcane-like forms and covered in deep red surfaces—where syrup flows like a trace of labor and sacrifice. Rather than presenting history as distant and resolved, Sweet Sin brings it into the present, inviting viewers to reconsider their everyday relationship with consumption and the invisible systems that sustain it.
+        </p>
+      </div>
+    </div>
+
+    <!-- 3. Full-width image -->
+    <div class="ss-fullwidth">
+      <img src="images/sweet-sin/采用图/heroimage.jpg" alt="Sweet Sin — full width" />
+    </div>
+
+    <!-- 4. Booklet section — image + video side by side -->
+    <div class="ss-section-label">
+      <h3 data-en="Booklet Design" data-zh="小册子设计">Booklet Design</h3>
+    </div>
+    <div class="ss-booklet-row">
+      <img src="images/sweet-sin/采用图/sweetsin-04.png" alt="Sweet Sin — booklet" />
+      <div class="ss-video-wrap">
+        <iframe src="https://www.youtube.com/embed/pRaKUkhLjFw" title="Sweet Sin — Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <!-- 5. Single image — full width -->
+    <div class="ss-single">
+      <img src="images/sweet-sin/采用图/sweetsin-01.png" alt="Sweet Sin — detail" />
+    </div>
+
+    <!-- 6. Layout image — full width -->
+    <div class="ss-layout">
+      <img src="images/sweet-sin/采用图/layout.png" alt="Sweet Sin — layout" />
+    </div>
+
+    <!-- 7. Installation section — all stacked vertically -->
+    <div class="ss-section-label">
+      <h3 data-en="Installation" data-zh="装置">Installation</h3>
+    </div>
+    <div class="ss-installation">
+      <img src="images/sweet-sin/采用图/sweetsin-02.png" alt="Installation — 01" />
+      <img src="images/sweet-sin/采用图/sweetsin-03.png" alt="Installation — 02" />
+      <img src="images/sweet-sin/采用图/sweetsin-05.png" alt="Installation — 03" />
+    </div>
+
+    <!-- Prev / Next Navigation -->
+    <div class="project-nav">
+      <a href="windowscape.html">
+        <span class="pnav-dir">←</span>
+        <span class="pnav-title" data-en="Windowscape" data-zh="窗景">Windowscape</span>
+      </a>
+      <a href="index.html#grid" class="pnav-all" data-en="All Work" data-zh="全部作品">All Work</a>
+      <a href="balcony.html" style="text-align:right;">
+        <span class="pnav-title" data-en="Balcony Metamorphosis" data-zh="阳台蜕变">Balcony Metamorphosis</span>
+        <span class="pnav-dir">→</span>
+      </a>
+    </div>
+
+  </div><!-- /.page-content -->
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Andrea Cheng</p>
+    <ul class="footer-links">
+      <li><a href="https://www.instagram.com/ye_yearchive/" target="_blank" rel="noopener" data-en="Instagram" data-zh="Instagram">Instagram</a></li>
+      <li><a href="https://www.linkedin.com/in/andrea-cheng-5682ab28a" target="_blank" rel="noopener" data-en="LinkedIn" data-zh="领英">LinkedIn</a></li>
+    </ul>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

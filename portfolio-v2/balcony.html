@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Balcony Metamorphosis — Andrea Cheng</title>
+  <link rel="icon" type="image/png" href="../images/favicon/Asset 2.png" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .bc-hero { padding: 0; margin-bottom: 0; }
+    .bc-hero img { display: block; width: 100%; height: auto; }
+
+    .bc-fullwidth { padding: 0; margin-bottom: 0; }
+    .bc-fullwidth img { display: block; width: 100%; height: auto; }
+
+    .bc-books {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      padding: 0 var(--edge);
+      margin-bottom: 80px;
+    }
+    .bc-books img { width: 100%; height: auto; display: block; }
+
+    .bc-poster {
+      display: flex;
+      justify-content: center;
+      padding: 0 var(--edge);
+      margin-bottom: 80px;
+    }
+    .bc-poster img {
+      max-width: 600px;
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .bc-single {
+      padding: 0 var(--edge);
+      margin-bottom: 40px;
+    }
+    .bc-single img { width: 100%; height: auto; display: block; }
+
+    .bc-install-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      padding: 0 var(--edge);
+      margin-bottom: 80px;
+    }
+    .bc-install-row img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    #fallingDots {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 50;
+    }
+
+    @media (max-width: 768px) {
+      .bc-books { grid-template-columns: 1fr; }
+      .bc-install-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo" data-logo-hover></a>
+    <div class="nav-right">
+      <a href="archive.html" data-en="Archive" data-zh="归档">Archive</a>
+      <a href="about.html" data-en="About" data-zh="关于">About</a>
+      <button class="lang-toggle" aria-label="Switch language">
+        <span class="l-en">EN</span>
+        <span class="sep">/</span>
+        <span class="l-zh">中文</span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="page-content">
+
+    <div class="bc-hero">
+      <img src="../images/Balcony/hero-image-1.jpg" alt="Balcony Metamorphosis — hero" />
+    </div>
+
+    <div class="project-info-block reveal">
+      <h1 data-en="Balcony Metamorphosis" data-zh="阳台蜕变">Balcony Metamorphosis</h1>
+      <div class="project-meta-list">
+        <div class="meta-item">
+          <span class="meta-label" data-en="Year" data-zh="年份">Year</span>
+          <span class="meta-value">2024</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-text-block">
+      <div class="text-section reveal">
+        <h3 data-en="Concept" data-zh="概念">Concept</h3>
+        <p data-en="The balcony acts as an interface between interior life and the city. It opens outward while also forming a boundary, creating a subtle transitional space between the public and the private. Through elements such as enclosure, objects, and everyday traces, balconies reveal how people negotiate visibility, privacy, and personal space."
+           data-zh="阳台是室内生活与城市之间的界面。它向外敞开，同时又形成一道边界，在公共与私人之间创造了一个微妙的过渡空间。通过围合、物件和日常痕迹等元素，阳台揭示了人们如何协商可见性、隐私和个人空间。">
+          The balcony acts as an interface between interior life and the city. It opens outward while also forming a boundary, creating a subtle transitional space between the public and the private. Through elements such as enclosure, objects, and everyday traces, balconies reveal how people negotiate visibility, privacy, and personal space.
+        </p>
+      </div>
+      <div class="text-section reveal reveal-delay-1">
+        <h3 data-en="Overview" data-zh="概述">Overview</h3>
+        <p data-en="This project examines balconies in Chinese urban housing over the past two decades, tracing their transformation in form and use. Once primarily functional spaces for drying and storage, balconies have gradually evolved into enclosed, semi-enclosed, or personalized environments. These shifts reflect changing attitudes toward privacy, comfort, and self-expression. Through photography, image classification, and publication design, the project reorganizes these dispersed urban fragments into a readable visual system. It captures subtle, often overlooked changes in everyday life, offering an alternative way to understand urban development and social transformation."
+           data-zh="本项目审视了过去二十年间中国城市住宅中阳台的形态与使用变迁。曾经以晾晒和储物为主要功能的阳台，逐渐演变为封闭、半封闭或个性化的空间。这些转变反映了人们对隐私、舒适和自我表达态度的变化。通过摄影、图像分类和出版设计，本项目将这些分散的城市碎片重组为一个可读的视觉系统，捕捉日常生活中细微且常被忽视的变化，提供了一种理解城市发展和社会转型的替代视角。">
+          This project examines balconies in Chinese urban housing over the past two decades, tracing their transformation in form and use. Once primarily functional spaces for drying and storage, balconies have gradually evolved into enclosed, semi-enclosed, or personalized environments. These shifts reflect changing attitudes toward privacy, comfort, and self-expression. Through photography, image classification, and publication design, the project reorganizes these dispersed urban fragments into a readable visual system. It captures subtle, often overlooked changes in everyday life, offering an alternative way to understand urban development and social transformation.
+        </p>
+      </div>
+    </div>
+
+    <div class="bc-fullwidth reveal"><img src="../images/Balcony/hero-image-3.jpg" alt="Balcony Metamorphosis — detail" /></div>
+    <div class="bc-fullwidth"><img src="../images/Balcony/layout.jpg" alt="Balcony Metamorphosis — layout" /></div>
+    <div class="bc-fullwidth"><img src="../images/Balcony/1-11.jpg" alt="Balcony Metamorphosis — 1-11" /></div>
+    <div class="bc-fullwidth" style="margin-bottom: 80px;"><img src="../images/Balcony/1-09.jpg" alt="Balcony Metamorphosis — 1-09" /></div>
+
+    <div class="bc-books reveal">
+      <img src="../images/Balcony/BF01-Book-Folder.png" alt="Book folder" />
+      <img src="../images/Balcony/BF02-Book.png" alt="Book" />
+    </div>
+
+    <div class="bc-poster reveal">
+      <img src="../images/Balcony/poster.gif" alt="Balcony Metamorphosis — poster animation" />
+    </div>
+
+    <div class="bc-single reveal"><img src="../images/Balcony/33.png" alt="Balcony Metamorphosis — 33" /></div>
+    <div class="bc-single reveal" style="margin-bottom: 80px;"><img src="../images/Balcony/T19290(1).png" alt="Balcony Metamorphosis — T19290" /></div>
+
+    <div class="bc-install-row reveal">
+      <img src="../images/Balcony/change_the_background_to_a_typ_Nano_Banana_Pro_83186.png" alt="Installation 01" />
+      <img src="../images/Balcony/Keep_the_original_image_exactl_Nano_Banana_Pro_85229.png" alt="Installation 02" />
+      <img src="../images/Balcony/Layer 0 copy.png" alt="Installation 03" />
+    </div>
+
+    <div class="project-nav">
+      <a href="windowscape.html">
+        <span class="pnav-dir" data-en="← Previous" data-zh="← 上一个">← Previous</span>
+        <span class="pnav-title" data-en="Windowscape" data-zh="窗景">Windowscape</span>
+      </a>
+      <a href="index.html" class="pnav-all" data-en="All Work" data-zh="全部作品">All Work</a>
+      <a href="biasbingo.html" style="text-align:right;">
+        <span class="pnav-dir" data-en="Next →" data-zh="下一个 →">Next →</span>
+        <span class="pnav-title" data-en="Bias Bingo" data-zh="偏见宾果">Bias Bingo</span>
+      </a>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Andrea Cheng</p>
+    <ul class="footer-links">
+      <li><a href="https://www.instagram.com/ye_yearchive/" target="_blank" rel="noopener" data-en="Instagram" data-zh="Instagram">Instagram</a></li>
+      <li><a href="https://www.linkedin.com/in/andrea-cheng-5682ab28a" target="_blank" rel="noopener" data-en="LinkedIn" data-zh="领英">LinkedIn</a></li>
+    </ul>
+  </footer>
+
+  <!-- Falling dots animation -->
+  <canvas id="fallingDots"></canvas>
+  <script>
+  (function() {
+    const canvas = document.getElementById('fallingDots');
+    const ctx = canvas.getContext('2d');
+    let w, h;
+    const dots = [];
+
+    const COLORS = [
+      '#ff3300', '#cc2900', '#ff5533',
+      '#000000', '#333333', '#666666',
+      '#999999', '#cccccc', '#ff4422',
+    ];
+    const RADIUS = 5;
+    const STROKE_W = 1.6;
+    const MAX_DOTS = 18;
+    const SPAWN_INTERVAL = 1800;
+
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function spawnDot() {
+      if (dots.length >= MAX_DOTS) return;
+      const color = COLORS[Math.floor(Math.random() * COLORS.length)];
+      const filled = Math.random() < 0.5;
+      dots.push({
+        x: Math.random() * w,
+        y: -RADIUS * 2,
+        vy: 0.3 + Math.random() * 0.6,
+        vx: (Math.random() - 0.5) * 0.3,
+        color, filled,
+      });
+    }
+
+    let lastSpawn = 0;
+
+    function animate(t) {
+      ctx.clearRect(0, 0, w, h);
+
+      if (t - lastSpawn > SPAWN_INTERVAL) {
+        spawnDot();
+        lastSpawn = t;
+      }
+
+      for (let i = dots.length - 1; i >= 0; i--) {
+        const d = dots[i];
+        d.y += d.vy;
+        d.x += d.vx;
+        d.x += Math.sin(t * 0.001 + i) * 0.08;
+
+        if (d.y > h + RADIUS * 2) { dots.splice(i, 1); continue; }
+
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, RADIUS, 0, Math.PI * 2);
+        if (d.filled) {
+          ctx.fillStyle = d.color;
+          ctx.fill();
+        } else {
+          ctx.strokeStyle = d.color;
+          ctx.lineWidth = STROKE_W;
+          ctx.stroke();
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    requestAnimationFrame(animate);
+  })();
+  </script>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

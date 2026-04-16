@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Style C — Vintage Editorial</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,700;9..144,900&family=Work+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Work Sans', sans-serif;
+    background: #f5f3ee;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+    position: relative;
+  }
+  /* Decorative geometric shapes */
+  .geo-circle {
+    position: fixed;
+    top: 15%;
+    right: 12%;
+    width: 120px;
+    height: 120px;
+    border: 2px solid #1a1a1a;
+    border-radius: 50%;
+    opacity: 0.15;
+  }
+  .geo-line {
+    position: fixed;
+    top: 10%;
+    right: calc(12% + 60px);
+    width: 2px;
+    height: 200px;
+    background: #1a1a1a;
+    opacity: 0.1;
+  }
+  .geo-dot {
+    position: fixed;
+    bottom: 20%;
+    left: 10%;
+    width: 12px;
+    height: 12px;
+    background: #1a1a1a;
+    border-radius: 50%;
+    opacity: 0.2;
+  }
+  .content {
+    max-width: 720px;
+    width: 100%;
+  }
+  .eyebrow {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 24px;
+  }
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 900;
+    color: #1a1a1a;
+    line-height: 0.95;
+    margin-bottom: 28px;
+    letter-spacing: -0.02em;
+  }
+  h1 em {
+    font-weight: 300;
+    font-style: italic;
+    color: #888;
+  }
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: #1a1a1a;
+    margin-bottom: 24px;
+  }
+  .subtitle {
+    font-size: 15px;
+    color: #555;
+    line-height: 1.8;
+    max-width: 480px;
+    margin-bottom: 36px;
+  }
+  .projects {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .project-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+  .project-name {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+  }
+  .project-year {
+    font-size: 12px;
+    color: #aaa;
+    letter-spacing: 0.1em;
+  }
+  .cta {
+    display: inline-block;
+    margin-top: 32px;
+    padding: 14px 32px;
+    border: 2px solid #1a1a1a;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  .cta:hover { background: #1a1a1a; color: #f5f3ee; }
+  .meta {
+    margin-top: 48px;
+    font-size: 12px;
+    color: #bbb;
+  }
+  .style-name {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Fraunces', serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a1a1a;
+    letter-spacing: 0.1em;
+  }
+</style>
+</head>
+<body>
+  <div class="geo-circle"></div>
+  <div class="geo-line"></div>
+  <div class="geo-dot"></div>
+
+  <div class="content">
+    <div class="eyebrow">Portfolio Preview</div>
+    <h1>Andrea<br>Cheng <em>&</em><br>Design</h1>
+    <div class="divider"></div>
+    <p class="subtitle">Designer and artist living between Hangzhou and New York. Her work moves across painting, visual design, installation, and code-driven visual experience.</p>
+    <div class="projects">
+      <div class="project-item">
+        <span class="project-name">Windowscape</span>
+        <span class="project-year">2025</span>
+      </div>
+      <div class="project-item">
+        <span class="project-name">Bias Bingo</span>
+        <span class="project-year">2025</span>
+      </div>
+      <div class="project-item">
+        <span class="project-name">Balcony Metamorphosis</span>
+        <span class="project-year">2024</span>
+      </div>
+    </div>
+    <a href="#" class="cta">View All Work</a>
+    <div class="meta">
+      Editorial · Witty serif · Geometric accents · Fraunces + Work Sans
+    </div>
+  </div>
+  <div class="style-name">Style C — Vintage Editorial</div>
+</body>
+</html>

@@ -9,19 +9,27 @@
 </head>
 <body>
 
-  <!-- Navigation -->
-  <nav>
-    <a href="index.html" class="nav-logo" data-logo-hover></a>
-    <div class="nav-right">
-      <a href="archive.html" class="active" data-en="Archive" data-zh="归档">Archive</a>
-      <a href="about.html" data-en="About" data-zh="关于">About</a>
-      <button class="lang-toggle" aria-label="Switch language">
-        <span class="l-en">EN</span>
-        <span class="sep">/</span>
-        <span class="l-zh">中文</span>
-      </button>
+  <!-- Info Bar -->
+  <div class="page-info-bar">
+    <div class="bar-left">
+      <a href="index.html#grid" style="text-decoration:none;color:inherit;">
+        <h1 class="bar-title" data-logo-hover data-en="Andrea Cheng" data-zh="成也">Andrea Cheng</h1>
+      </a>
+      <p class="bar-subtitle" data-en="Visual Communication Designer" data-zh="视觉传达设计师">Visual Communication Designer</p>
     </div>
-  </nav>
+    <div class="bar-right">
+      <div class="bar-nav">
+        <a href="archive.html" class="active" data-en="Archive" data-zh="归档">Archive</a>
+        <a href="about.html" data-en="About" data-zh="关于">About</a>
+        <button class="lang-toggle" aria-label="Switch language">
+          <span class="l-en">EN</span>
+          <span class="sep">/</span>
+          <span class="l-zh">中文</span>
+        </button>
+      </div>
+      <a href="mailto:chengye1017@gmail.com" class="bar-contact">chengye1017@gmail.com</a>
+    </div>
+  </div>
 
   <div class="page-content">
 
@@ -41,9 +49,61 @@
     <!-- Illustration -->
     <section class="archive-category">
       <h2 class="archive-cat-title" data-en="Illustration" data-zh="插画">Illustration</h2>
-      <div class="archive-items">
-        <!-- Add items here -->
-        <p class="archive-placeholder" data-en="Coming soon." data-zh="即将上线。">Coming soon.</p>
+      <div class="archive-series-list">
+
+        <!-- Series 1 -->
+        <div class="archive-series" data-series>
+          <button class="series-header" aria-expanded="false">
+            <div class="series-thumb">
+              <img src="images/illustration/pearl1.jpg" alt="The Pearl Tear of the Mermaid" />
+            </div>
+            <div class="series-meta">
+              <span class="series-title" data-en="The Pearl Tear of the Mermaid" data-zh="美人鱼的珍珠泪">The Pearl Tear of the Mermaid</span>
+              <span class="series-year">2024</span>
+            </div>
+            <span class="series-toggle">+</span>
+          </button>
+          <div class="series-body">
+            <div class="series-grid series-grid-4">
+              <div class="series-img"><img src="images/illustration/pearl1.jpg" alt="Pearl 1" /></div>
+              <div class="series-img"><img src="images/illustration/pearl2.png" alt="Pearl 2" /></div>
+              <div class="series-img"><img src="images/illustration/pearl3.png" alt="Pearl 3" /></div>
+              <div class="series-img"><img src="images/illustration/pearl4.jpeg" alt="Pearl 4" /></div>
+              <div class="series-img"><img src="images/illustration/pearl5.jpeg" alt="Pearl 5" /></div>
+              <div class="series-img"><img src="images/illustration/pearl6.jpeg" alt="Pearl 6" /></div>
+              <div class="series-img"><img src="images/illustration/pearl7.jpeg" alt="Pearl 7" /></div>
+              <div class="series-img"><img src="images/illustration/pearl8.png" alt="Pearl 8" /></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="series-divider"></div>
+
+        <!-- Series 2 -->
+        <div class="archive-series" data-series>
+          <button class="series-header" aria-expanded="false">
+            <div class="series-thumb">
+              <img src="images/illustration/neverletmego1.jpg" alt="Never Let Me Go" />
+            </div>
+            <div class="series-meta">
+              <span class="series-title" data-en="Never Let Me Go" data-zh="别让我走">Never Let Me Go</span>
+              <span class="series-year">2023</span>
+            </div>
+            <span class="series-toggle">+</span>
+          </button>
+          <div class="series-body">
+            <div class="series-grid">
+              <div class="series-img"><img src="images/illustration/neverletmego1.jpg" alt="Never Let Me Go 1" /></div>
+              <div class="series-img"><img src="images/illustration/neverletmego2.jpg" alt="Never Let Me Go 2" /></div>
+              <div class="series-img"><img src="images/illustration/neverletmego3.jpg" alt="Never Let Me Go 3" /></div>
+              <div class="series-img"><img src="images/illustration/neverletmego4.jpg" alt="Never Let Me Go 4" /></div>
+              <div class="series-img"><img src="images/illustration/neverletmego5.jpg" alt="Never Let Me Go 5" /></div>
+              <div class="series-img"><img src="images/illustration/neverletmego6.jpg" alt="Never Let Me Go 6" /></div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -57,6 +117,147 @@
       <li><a href="https://www.linkedin.com/in/andrea-cheng-5682ab28a" target="_blank" rel="noopener" data-en="LinkedIn" data-zh="领英">LinkedIn</a></li>
     </ul>
   </footer>
+
+  <!-- Archive accordion styles -->
+  <style>
+    .archive-series-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .series-divider {
+      border-top: 1px solid var(--border);
+    }
+
+    .series-header {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      width: 100%;
+      padding: 20px 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      font-family: var(--font);
+      color: var(--text);
+    }
+
+    .series-thumb {
+      width: 160px;
+      flex-shrink: 0;
+      border-radius: 2px;
+    }
+    .series-thumb img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: opacity 0.2s ease;
+    }
+    .series-header:hover .series-thumb img {
+      opacity: 0.75;
+    }
+
+    .series-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+      min-width: 0;
+    }
+    .series-title {
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    .series-year {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    .series-toggle {
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--muted);
+      flex-shrink: 0;
+      width: 24px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .archive-series.is-open .series-toggle {
+      transform: rotate(45deg);
+    }
+
+    .series-body {
+      height: 0;
+      overflow: hidden;
+      transition: height 0.4s ease;
+    }
+
+    .series-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+      padding-bottom: 24px;
+    }
+    .series-grid-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .series-img {
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+    }
+    .series-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .series-thumb { width: 120px; }
+      .series-header { gap: 16px; }
+      .series-grid { grid-template-columns: repeat(2, 1fr); }
+      .series-grid-4 { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .series-thumb { width: 90px; }
+      .series-title { font-size: 12px; }
+      .series-grid, .series-grid-4 { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <!-- Archive accordion interaction -->
+  <script>
+  document.querySelectorAll('[data-series]').forEach(function(series) {
+    var btn = series.querySelector('.series-header');
+    var body = series.querySelector('.series-body');
+    btn.addEventListener('click', function() {
+      if (series.classList.contains('is-open')) {
+        // Collapse: set explicit height first, then animate to 0
+        body.style.height = body.scrollHeight + 'px';
+        requestAnimationFrame(function() {
+          body.style.height = '0';
+        });
+        series.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+      } else {
+        // Expand: animate from 0 to scrollHeight, then clear
+        body.style.height = body.scrollHeight + 'px';
+        series.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+        body.addEventListener('transitionend', function handler() {
+          body.style.height = 'auto';
+          body.removeEventListener('transitionend', handler);
+        });
+      }
+    });
+  });
+  </script>
 
   <script src="js/main.js"></script>
 </body>

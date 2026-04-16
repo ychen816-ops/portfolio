@@ -9,19 +9,27 @@
 </head>
 <body>
 
-  <!-- Navigation -->
-  <nav>
-    <a href="index.html" class="nav-logo" data-logo-hover></a>
-    <div class="nav-right">
-      <a href="archive.html" data-en="Archive" data-zh="归档">Archive</a>
-      <a href="about.html" data-en="About" data-zh="关于">About</a>
-      <button class="lang-toggle" aria-label="Switch language">
-        <span class="l-en">EN</span>
-        <span class="sep">/</span>
-        <span class="l-zh">中文</span>
-      </button>
+  <!-- Info Bar -->
+  <div class="page-info-bar">
+    <div class="bar-left">
+      <a href="index.html#grid" style="text-decoration:none;color:inherit;">
+        <h1 class="bar-title" data-logo-hover data-en="Andrea Cheng" data-zh="成也">Andrea Cheng</h1>
+      </a>
+      <p class="bar-subtitle" data-en="Visual Communication Designer" data-zh="视觉传达设计师">Visual Communication Designer</p>
     </div>
-  </nav>
+    <div class="bar-right">
+      <div class="bar-nav">
+        <a href="archive.html" data-en="Archive" data-zh="归档">Archive</a>
+        <a href="about.html" data-en="About" data-zh="关于">About</a>
+        <button class="lang-toggle" aria-label="Switch language">
+          <span class="l-en">EN</span>
+          <span class="sep">/</span>
+          <span class="l-zh">中文</span>
+        </button>
+      </div>
+      <a href="mailto:chengye1017@gmail.com" class="bar-contact">chengye1017@gmail.com</a>
+    </div>
+  </div>
 
   <div class="page-content">
 
@@ -114,14 +122,14 @@
 
     <!-- Prev / Next Navigation -->
     <div class="project-nav">
-      <a href="project.html">
-        <span class="pnav-dir" data-en="← Previous" data-zh="← 上一个">← Previous</span>
-        <span class="pnav-title" data-en="Previous Project" data-zh="上一个项目">Previous Project</span>
+      <a href="balcony.html">
+        <span class="pnav-dir">←</span>
+        <span class="pnav-title" data-en="Balcony Metamorphosis" data-zh="阳台蜕变">Balcony Metamorphosis</span>
       </a>
-      <a href="index.html" class="pnav-all" data-en="All Work" data-zh="全部作品">All Work</a>
-      <a href="project.html" style="text-align:right;">
-        <span class="pnav-dir" data-en="Next →" data-zh="下一个 →">Next →</span>
-        <span class="pnav-title" data-en="Next Project" data-zh="下一个项目">Next Project</span>
+      <a href="index.html#grid" class="pnav-all" data-en="All Work" data-zh="全部作品">All Work</a>
+      <a href="windowscape.html">
+        <span class="pnav-title" data-en="Windowscape" data-zh="窗景">Windowscape</span>
+        <span class="pnav-dir">→</span>
       </a>
     </div>
 
@@ -234,7 +242,25 @@
     }
 
     @media (max-width: 768px) {
-      #tokenArea { bottom: 12px; right: 12px; }
+      #bingoBoard {
+        display: flex;
+        flex-direction: column;
+      }
+      #tokenArea {
+        position: relative !important;
+        top: auto !important;
+        right: auto !important;
+        flex-direction: row;
+        justify-content: center;
+        padding: 16px 0;
+        background: #000;
+      }
+      #tokenPrompt {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      #tokenLabel { text-align: center; }
       .token { width: 52px; }
       #pointEmoji { font-size: 22px; }
     }

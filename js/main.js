@@ -1,27 +1,36 @@
 /* ===========================
-   Custom Cursor
+   Custom Cursor (skip on touch devices)
    =========================== */
-const cursor = document.createElement('div');
-cursor.id = 'cursor';
-document.body.appendChild(cursor);
+const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-let mouseX = 0, mouseY = 0;
-let cursorX = 0, cursorY = 0;
+if (!isTouch) {
+  const cursor = document.createElement('div');
+  cursor.id = 'cursor';
+  document.body.appendChild(cursor);
 
-document.addEventListener('mousemove', (e) => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-});
+  let mouseX = 0, mouseY = 0;
+  let cursorX = 0, cursorY = 0;
+  let cursorMoving = false;
 
-function animateCursor() {
-  const lerp = 0.13;
-  cursorX += (mouseX - cursorX) * lerp;
-  cursorY += (mouseY - cursorY) * lerp;
-  cursor.style.left = cursorX + 'px';
-  cursor.style.top = cursorY + 'px';
-  requestAnimationFrame(animateCursor);
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    if (!cursorMoving) { cursorMoving = true; animateCursor(); }
+  });
+
+  function animateCursor() {
+    const lerp = 0.13;
+    cursorX += (mouseX - cursorX) * lerp;
+    cursorY += (mouseY - cursorY) * lerp;
+    cursor.style.left = cursorX + 'px';
+    cursor.style.top = cursorY + 'px';
+    if (Math.abs(mouseX - cursorX) > 0.5 || Math.abs(mouseY - cursorY) > 0.5) {
+      requestAnimationFrame(animateCursor);
+    } else {
+      cursorMoving = false;
+    }
+  }
 }
-animateCursor();
 
 /* ===========================
    Language Switch
@@ -35,16 +44,15 @@ function applyLang(lang) {
     el.textContent = lang === 'zh' ? el.dataset.zh : el.dataset.en;
   });
 
-  // Update toggle button display
-  const toggle = document.querySelector('.lang-toggle');
-  if (toggle) {
+  // Update all toggle button displays
+  document.querySelectorAll('.lang-toggle').forEach(function(toggle) {
     const enSpan = toggle.querySelector('.l-en');
     const zhSpan = toggle.querySelector('.l-zh');
     if (enSpan && zhSpan) {
       enSpan.style.opacity = lang === 'en' ? '1' : '0.4';
       zhSpan.style.opacity = lang === 'zh' ? '1' : '0.4';
     }
-  }
+  });
 
   // Update html lang attribute
   document.documentElement.lang = lang === 'zh' ? 'zh' : 'en';
@@ -161,17 +169,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   blinkHint();
 
-  // Language toggle click
-  const toggle = document.querySelector('.lang-toggle');
-  if (toggle) {
-    toggle.addEventListener('click', () => {
+  // Language toggle click — bind ALL toggle buttons
+  document.querySelectorAll('.lang-toggle').forEach(function(btn) {
+    btn.addEventListener('click', () => {
       currentLang = currentLang === 'en' ? 'zh' : 'en';
       localStorage.setItem('lang', currentLang);
       applyLang(currentLang);
       setupLogoHovers();    // rebuild logo char spans with new language text
       setupHeadingHovers(); // rebuild heading char spans with new language text
     });
-  }
+  });
 
   /* ===========================
      Lightbox
@@ -191,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const lbNext  = lb.querySelector('.lightbox-next');
 
   // Collect all lightbox-able images in DOM order (exclude hero-image-2 and fragment canvas)
-  const lbImages = Array.from(document.querySelectorAll('.g-item img, .hero-contain img, .ws-poster-item img, .ws-mockup-item img, .ws-install-item img, .ws-contained-img:not(.ws-no-lightbox) img'));
+  const lbImages = Array.from(document.querySelectorAll('.g-item img, .hero-contain img, .ws-poster-item img, .ws-mockup-item img, .ws-install-item img, .ws-contained-img:not(.ws-no-lightbox) img, .series-img img'));
   let lbIndex = 0;
 
   function lbShow(idx) {
@@ -504,7 +511,7 @@ document.addEventListener('DOMContentLoaded', () => {
      Active Nav Link
      =========================== */
   const page = window.location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.nav-right a').forEach(link => {
+  document.querySelectorAll('.bar-nav a, .nav-right a').forEach(link => {
     const href = link.getAttribute('href');
     if (href === page || (page === '' && href === 'index.html')) {
       link.classList.add('active');

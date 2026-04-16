@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Style A — Pastel Geometry</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: #c8d9e6;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+  }
+  .card {
+    background: #faf9f7;
+    border-radius: 24px;
+    max-width: 900px;
+    width: 100%;
+    padding: 64px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    position: relative;
+    overflow: hidden;
+  }
+  /* Vertical pills on right edge */
+  .pills {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-right: 0;
+  }
+  .pill {
+    width: 18px;
+    border-radius: 9px;
+  }
+  .pill-1 { height: 40px; background: #f0b4d4; }
+  .pill-2 { height: 60px; background: #a8d4c4; }
+  .pill-3 { height: 80px; background: #5a7c6a; }
+  .pill-4 { height: 60px; background: #9b8dc4; }
+  .pill-5 { height: 40px; background: #7c6aad; }
+
+  .label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #9b8dc4;
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .subtitle {
+    font-size: 15px;
+    color: #666;
+    line-height: 1.7;
+    max-width: 500px;
+    margin-bottom: 32px;
+  }
+  .tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .tag-pink { background: #f0b4d4; color: #5a2040; }
+  .tag-mint { background: #a8d4c4; color: #2a5040; }
+  .tag-purple { background: #9b8dc4; color: #2a2050; }
+  .meta {
+    margin-top: 40px;
+    display: flex;
+    gap: 32px;
+    font-size: 12px;
+    color: #999;
+  }
+  .style-name {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 13px;
+    font-weight: 700;
+    color: #5a7c6a;
+    letter-spacing: 0.1em;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="pills">
+      <div class="pill pill-1"></div>
+      <div class="pill pill-2"></div>
+      <div class="pill pill-3"></div>
+      <div class="pill pill-4"></div>
+      <div class="pill pill-5"></div>
+    </div>
+    <div class="label">Portfolio Preview</div>
+    <h1>Andrea Cheng</h1>
+    <p class="subtitle">Designer and artist living between Hangzhou and New York. Work spans visual communication, spatial installation, and interactive media.</p>
+    <div class="tags">
+      <span class="tag tag-pink">Windowscape</span>
+      <span class="tag tag-mint">Balcony Metamorphosis</span>
+      <span class="tag tag-purple">Bias Bingo</span>
+    </div>
+    <div class="meta">
+      <span>Friendly</span>
+      <span>Rounded</span>
+      <span>Pastel palette</span>
+      <span>Plus Jakarta Sans</span>
+    </div>
+  </div>
+  <div class="style-name">Style A — Pastel Geometry</div>
+</body>
+</html>

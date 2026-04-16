@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Archive — Andrea Cheng</title>
+  <link rel="icon" type="image/png" href="../images/favicon/Asset 2.png" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo" data-logo-hover></a>
+    <div class="nav-right">
+      <a href="archive.html" class="active" data-en="Archive" data-zh="归档">Archive</a>
+      <a href="about.html" data-en="About" data-zh="关于">About</a>
+      <button class="lang-toggle" aria-label="Switch language">
+        <span class="l-en">EN</span>
+        <span class="sep">/</span>
+        <span class="l-zh">中文</span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="page-content">
+
+    <div class="archive-header reveal">
+      <h1 data-en="Archive" data-zh="归档">Archive</h1>
+    </div>
+
+    <section class="archive-category reveal reveal-delay-1">
+      <h2 class="archive-cat-title" data-en="Installation" data-zh="装置">Installation</h2>
+      <div class="archive-items">
+        <p class="archive-placeholder" data-en="Coming soon." data-zh="即将上线。">Coming soon.</p>
+      </div>
+    </section>
+
+    <section class="archive-category reveal reveal-delay-2">
+      <h2 class="archive-cat-title" data-en="Illustration" data-zh="插画">Illustration</h2>
+      <div class="archive-series-list">
+
+        <!-- Series 1 -->
+        <div class="archive-series" data-series>
+          <button class="series-header" aria-expanded="false">
+            <div class="series-thumb">
+              <img src="../images/illustration/pearl1.jpg" alt="The Pearl Tear of the Mermaid" />
+            </div>
+            <div class="series-meta">
+              <span class="series-title" data-en="The Pearl Tear of the Mermaid" data-zh="美人鱼的珍珠泪">The Pearl Tear of the Mermaid</span>
+              <span class="series-year">2024</span>
+            </div>
+            <span class="series-toggle">+</span>
+          </button>
+          <div class="series-body">
+            <div class="series-grid series-grid-4">
+              <div class="series-img"><img src="../images/illustration/pearl1.jpg" alt="Pearl 1" /></div>
+              <div class="series-img"><img src="../images/illustration/pearl2.png" alt="Pearl 2" /></div>
+              <div class="series-img"><img src="../images/illustration/pearl3.png" alt="Pearl 3" /></div>
+              <div class="series-img"><img src="../images/illustration/pearl4.jpeg" alt="Pearl 4" /></div>
+              <div class="series-img"><img src="../images/illustration/pearl5.jpeg" alt="Pearl 5" /></div>
+              <div class="series-img"><img src="../images/illustration/pearl6.jpeg" alt="Pearl 6" /></div>
+              <div class="series-img"><img src="../images/illustration/pearl7.jpeg" alt="Pearl 7" /></div>
+              <div class="series-img"><img src="../images/illustration/pearl8.png" alt="Pearl 8" /></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="series-divider"></div>
+
+        <!-- Series 2 -->
+        <div class="archive-series" data-series>
+          <button class="series-header" aria-expanded="false">
+            <div class="series-thumb">
+              <img src="../images/illustration/neverletmego1.jpg" alt="Never Let Me Go" />
+            </div>
+            <div class="series-meta">
+              <span class="series-title" data-en="Never Let Me Go" data-zh="别让我走">Never Let Me Go</span>
+              <span class="series-year">2023</span>
+            </div>
+            <span class="series-toggle">+</span>
+          </button>
+          <div class="series-body">
+            <div class="series-grid">
+              <div class="series-img"><img src="../images/illustration/neverletmego1.jpg" alt="Never Let Me Go 1" /></div>
+              <div class="series-img"><img src="../images/illustration/neverletmego2.jpg" alt="Never Let Me Go 2" /></div>
+              <div class="series-img"><img src="../images/illustration/neverletmego3.jpg" alt="Never Let Me Go 3" /></div>
+              <div class="series-img"><img src="../images/illustration/neverletmego4.jpg" alt="Never Let Me Go 4" /></div>
+              <div class="series-img"><img src="../images/illustration/neverletmego5.jpg" alt="Never Let Me Go 5" /></div>
+              <div class="series-img"><img src="../images/illustration/neverletmego6.jpg" alt="Never Let Me Go 6" /></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Archive accordion interaction -->
+  <script>
+  document.querySelectorAll('[data-series]').forEach(function(series) {
+    var btn = series.querySelector('.series-header');
+    var body = series.querySelector('.series-body');
+    btn.addEventListener('click', function() {
+      if (series.classList.contains('is-open')) {
+        body.style.height = body.scrollHeight + 'px';
+        requestAnimationFrame(function() {
+          body.style.height = '0';
+        });
+        series.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+      } else {
+        body.style.height = body.scrollHeight + 'px';
+        series.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+        body.addEventListener('transitionend', function handler() {
+          body.style.height = 'auto';
+          body.removeEventListener('transitionend', handler);
+        });
+      }
+    });
+  });
+  </script>
+
+  <footer>
+    <p>&copy; 2026 Andrea Cheng</p>
+    <ul class="footer-links">
+      <li><a href="https://www.instagram.com/ye_yearchive/" target="_blank" rel="noopener" data-en="Instagram" data-zh="Instagram">Instagram</a></li>
+      <li><a href="https://www.linkedin.com/in/andrea-cheng-5682ab28a" target="_blank" rel="noopener" data-en="LinkedIn" data-zh="领英">LinkedIn</a></li>
+    </ul>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
