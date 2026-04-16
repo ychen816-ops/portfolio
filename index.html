@@ -234,7 +234,7 @@
       text-transform: uppercase;
       color: var(--text);
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       line-height: 0.95;
       white-space: nowrap;
     }
@@ -255,7 +255,7 @@
       will-change: transform, color;
       cursor: default;
     }
-    .hero-title .logo-char.is-space { width: 0.22em; pointer-events: none; }
+    .hero-title .logo-char.is-space { width: 0.35em; pointer-events: none; }
     .hero-title .logo-char.is-symbol { animation: symbolPop 0.25s cubic-bezier(0.22, 0.61, 0.36, 1) forwards; }
     .hero-title .logo-char.is-returning { animation: symbolReturn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
 
@@ -327,19 +327,21 @@
         flex-direction: row;
         align-items: center;
         gap: 0;
-        padding: 8px 16px;
+        padding: 6px 12px;
         transition: transform 0.3s ease;
       }
       .hero-info-bar.bar-hidden {
         transform: translateY(-100%);
       }
-      .hero-title { font-size: 1.1rem; }
+      .hero-title {
+        white-space: nowrap;
+      }
       .hero-subtitle { display: none !important; }
       .hero-info-left { flex: 1; min-width: 0; }
-      .hero-info-right { align-items: flex-end; gap: 4px; }
-      .hero-nav { gap: 6px; }
-      .hero-nav a, .hero-nav .lang-toggle { padding: 4px 10px; font-size: 9px; }
-      .hero-contact { font-size: 10px; }
+      .hero-info-right { align-items: flex-end; gap: 4px; flex-shrink: 0; }
+      .hero-nav { gap: 4px; }
+      .hero-nav a, .hero-nav .lang-toggle { padding: 3px 8px; font-size: 9px; }
+      .hero-contact { font-size: 9px; }
     }
   </style>
 
@@ -491,10 +493,10 @@
       const subEl    = infoBar.querySelector('.hero-subtitle');
 
       const mob = window.innerWidth <= 600;
-      const TITLE_S = mob ? 2.2 : 3.5, TITLE_E = 1.6;
-      const SUB_S   = mob ? 11 : 13,   SUB_E   = 11;
-      const PT_S    = mob ? 20 : 28,    PT_E    = 10;
-      const PB_S    = mob ? 18 : 24,    PB_E    = 10;
+      const TITLE_S = mob ? 1.8 : 3.5,  TITLE_E = mob ? 1.2 : 1.6;
+      const SUB_S   = mob ? 11 : 13,    SUB_E   = 11;
+      const PT_S    = mob ? 12 : 28,    PT_E    = mob ? 6 : 10;
+      const PB_S    = mob ? 10 : 24,    PB_E    = mob ? 6 : 10;
       const SMT_S   = mob ? 6 : 10,     SMT_E   = 4;
 
       function lerp(a, b, t) { return a + (b - a) * t; }
@@ -517,6 +519,7 @@
 
           var barBottom = infoBar.getBoundingClientRect().bottom;
           container.style.height = barBottom + 'px';
+          container.style.opacity = raw >= 1 ? '0' : '1';
 
           ticking = false;
         });

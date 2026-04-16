@@ -15,7 +15,8 @@
       "Bash(open http://localhost:8080/sweetsin.html)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8080/css/style.css)",
       "WebFetch(domain:andreacheng.studio)",
-      "Bash(open http://localhost:8080/index.html)"
+      "Bash(open http://localhost:8080/index.html)",
+      "Bash(ipconfig getifaddr *)"
     ],
     "additionalDirectories": [
       "/Users/andreacheng/Desktop/claudecode/portfolio/portfolio-v2"

@@ -525,26 +525,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const bar = document.querySelector('.page-info-bar') || document.querySelector('.hero-info-bar');
     if (bar) {
       let lastY = window.scrollY;
-      let ticking = false;
+      let scrollSource = false; // true when scroll just changed bar state
+      let tapLock = false;
 
       window.addEventListener('scroll', function() {
-        if (ticking) return;
-        ticking = true;
         requestAnimationFrame(function() {
           const y = window.scrollY;
-          if (y > lastY && y > 60) {
+          const delta = y - lastY;
+          if (Math.abs(delta) < 4) { lastY = y; return; }
+          scrollSource = true;
+          if (delta > 0 && y > 60) {
             bar.classList.add('bar-hidden');
-          } else {
+          } else if (delta < 0) {
             bar.classList.remove('bar-hidden');
           }
           lastY = y;
-          ticking = false;
+          setTimeout(function() { scrollSource = false; }, 100);
         });
       }, { passive: true });
 
       document.addEventListener('click', function(e) {
         if (bar.contains(e.target)) return;
+        if (scrollSource || tapLock) return;
+        tapLock = true;
         bar.classList.toggle('bar-hidden');
+        setTimeout(function() { tapLock = false; }, 300);
       });
     }
   }
