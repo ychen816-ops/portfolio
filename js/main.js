@@ -518,4 +518,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  /* ===========================
+     Mobile Infobar: hide on scroll-down, show on scroll-up, tap toggle
+     =========================== */
+  if (window.innerWidth <= 600) {
+    const bar = document.querySelector('.page-info-bar') || document.querySelector('.hero-info-bar');
+    if (bar) {
+      let lastY = window.scrollY;
+      let ticking = false;
+
+      window.addEventListener('scroll', function() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function() {
+          const y = window.scrollY;
+          if (y > lastY && y > 60) {
+            bar.classList.add('bar-hidden');
+          } else {
+            bar.classList.remove('bar-hidden');
+          }
+          lastY = y;
+          ticking = false;
+        });
+      }, { passive: true });
+
+      document.addEventListener('click', function(e) {
+        if (bar.contains(e.target)) return;
+        bar.classList.toggle('bar-hidden');
+      });
+    }
+  }
+
 });

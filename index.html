@@ -324,16 +324,22 @@
     @media (max-width: 600px) {
       .home-hero { height: 50vh; min-height: 200px; }
       .hero-info-bar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 14px;
-        padding: 20px 16px 18px;
+        flex-direction: row;
+        align-items: center;
+        gap: 0;
+        padding: 8px 16px;
+        transition: transform 0.3s ease;
       }
-      .hero-title { font-size: 2.2rem; }
-      .hero-info-right { align-items: flex-start; }
-      .hero-nav { gap: 8px; }
-      .hero-nav a, .hero-nav .lang-toggle { padding: 5px 12px; font-size: 10px; }
-      .hero-contact { font-size: 11px; }
+      .hero-info-bar.bar-hidden {
+        transform: translateY(-100%);
+      }
+      .hero-title { font-size: 1.1rem; }
+      .hero-subtitle { display: none !important; }
+      .hero-info-left { flex: 1; min-width: 0; }
+      .hero-info-right { align-items: flex-end; gap: 4px; }
+      .hero-nav { gap: 6px; }
+      .hero-nav a, .hero-nav .lang-toggle { padding: 4px 10px; font-size: 9px; }
+      .hero-contact { font-size: 10px; }
     }
   </style>
 
